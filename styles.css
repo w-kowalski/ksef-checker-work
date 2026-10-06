@@ -214,3 +214,12 @@
 
 /* WORK / WEB 2.5.1 */
 .work-mode-banner{position:sticky;top:0;z-index:9999;display:flex;gap:14px;align-items:center;padding:9px 18px;background:#fff8e6;border-bottom:1px solid #e5c76b;color:#624b00;font-size:12px;line-height:1.35}.work-mode-banner b{white-space:nowrap;font-size:11px;letter-spacing:.08em}.work-mode-banner span{opacity:.95}@media(max-width:700px){.work-mode-banner{align-items:flex-start;flex-direction:column;gap:3px}}
+
+
+/* v2.6.1 — indywidualne oznaczanie artykułów jako przeczytane */
+.news-read-toggle{display:inline-flex;align-items:center;justify-content:center;margin-top:9px;border:1px solid #d5dbe5;background:#fff;color:#475467;border-radius:8px;padding:7px 9px;font:800 9px/1.1 Open Sans,Arial,sans-serif;cursor:pointer;transition:.15s ease;max-width:100%}
+.news-read-toggle:hover{border-color:#9db6de;background:#f6f9ff;color:#245ec8}
+.news-read-toggle.active{border-color:#b8dfc8;background:#edf9f2;color:#137452}
+.news-read-dot{display:inline-flex;margin-top:6px;font-size:7px;background:#edf9f2;color:#137452;border:1px solid #cbead8;border-radius:999px;padding:3px 6px;font-weight:900;letter-spacing:.05em}
+.tax-news-row.is-read{background:#fff}.tax-news-row.is-read .news-title{color:#526070}.tax-news-row.is-read .news-story p{color:#7c8799}
+@media(max-width:980px){.news-source .news-read-toggle{margin-top:0}}
