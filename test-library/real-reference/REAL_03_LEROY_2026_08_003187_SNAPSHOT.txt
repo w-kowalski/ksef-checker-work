@@ -1,0 +1,18 @@
+PUBLICZNA FAKTURA / WIZUALIZACJA KSeF — SNAPSHOT METADANYCH
+Źródło: https://www.scribd.com/document/1009843369/archivelink-3
+
+Numer faktury: 2026-08-003187
+Numer KSeF: 1130089950-20260306-2E6C8E000003-D2
+Data wystawienia: 2026-03-06
+Sprzedawca: Leroy-Merlin Polska sp. z o.o. | NIP 1130089950
+Nabywca: DIAGNOSTYKA S.A. | NIP 6751265009
+Waluta: PLN
+Kwota brutto: 2440.60
+
+Scenariusz testowy:
+Faktura podstawowa; wiele pozycji; dostawa; zaliczka/uwzględnienie płatności; stopka; dodatkowy opis
+
+UWAGA:
+Ten plik TXT jest lokalnym snapshotem metadanych z publicznie dostępnej wizualizacji.
+Nie jest oryginalnym plikiem XML pobranym z produkcyjnego KSeF.
+Oryginalne źródło otwiera plik .url obok.

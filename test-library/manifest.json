@@ -1,0 +1,663 @@
+{
+  "version": "1.4",
+  "xmlCount": 46,
+  "referenceCount": 5,
+  "entries": [
+    {
+      "id": "legacy-01_vat_23_poprawna",
+      "group": "Wbudowane 1.3",
+      "title": "VAT 23% — poprawna",
+      "description": "Podstawowa faktura krajowa VAT 23%.",
+      "file": "samples/01_vat_23_poprawna.xml",
+      "kind": "xml",
+      "expected": "poprawna",
+      "tags": [
+        "VAT 23%",
+        "PLN"
+      ]
+    },
+    {
+      "id": "legacy-02_reverse_charge_poprawna",
+      "group": "Wbudowane 1.3",
+      "title": "Reverse charge — poprawna",
+      "description": "Usługa B2B z odwrotnym obciążeniem i poprawną adnotacją.",
+      "file": "samples/02_reverse_charge_poprawna.xml",
+      "kind": "xml",
+      "expected": "poprawna",
+      "tags": [
+        "reverse charge",
+        "UE"
+      ]
+    },
+    {
+      "id": "legacy-03_reverse_charge_brak_p18",
+      "group": "Wbudowane 1.3",
+      "title": "Reverse charge — brak P_18",
+      "description": "Celowo brak wymaganej adnotacji P_18.",
+      "file": "samples/03_reverse_charge_brak_p18.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "reverse charge",
+        "negatywny"
+      ]
+    },
+    {
+      "id": "legacy-04_korekta_poprawna",
+      "group": "Wbudowane 1.3",
+      "title": "Korekta — poprawna",
+      "description": "Faktura korygująca z referencją do faktury pierwotnej.",
+      "file": "samples/04_korekta_poprawna.xml",
+      "kind": "xml",
+      "expected": "poprawna",
+      "tags": [
+        "KOR"
+      ]
+    },
+    {
+      "id": "legacy-05_korekta_bez_przyczyny",
+      "group": "Wbudowane 1.3",
+      "title": "Korekta — bez przyczyny",
+      "description": "Korekta z celowo pominiętą przyczyną.",
+      "file": "samples/05_korekta_bez_przyczyny.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "KOR",
+        "negatywny"
+      ]
+    },
+    {
+      "id": "legacy-06_wdt",
+      "group": "Wbudowane 1.3",
+      "title": "WDT",
+      "description": "Wewnątrzwspólnotowa dostawa towarów.",
+      "file": "samples/06_wdt.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "WDT",
+        "UE"
+      ]
+    },
+    {
+      "id": "legacy-07_eksport",
+      "group": "Wbudowane 1.3",
+      "title": "Eksport",
+      "description": "Eksport towarów poza UE.",
+      "file": "samples/07_eksport.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "eksport",
+        "0%"
+      ]
+    },
+    {
+      "id": "legacy-08_mpp_brak_adnotacji",
+      "group": "Wbudowane 1.3",
+      "title": "MPP — brak adnotacji",
+      "description": "Pozycja wymagająca MPP bez poprawnej adnotacji.",
+      "file": "samples/08_mpp_brak_adnotacji.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "MPP",
+        "negatywny"
+      ]
+    },
+    {
+      "id": "legacy-09_zwolniona",
+      "group": "Wbudowane 1.3",
+      "title": "Sprzedaż zwolniona",
+      "description": "Faktura ze sprzedażą zwolnioną z VAT.",
+      "file": "samples/09_zwolniona.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "zw",
+        "VAT"
+      ]
+    },
+    {
+      "id": "legacy-10_eur_brak_vat_w_pln",
+      "group": "Wbudowane 1.3",
+      "title": "EUR — brak VAT w PLN",
+      "description": "Krajowa faktura walutowa z brakującym przeliczeniem VAT na PLN.",
+      "file": "samples/10_eur_brak_vat_w_pln.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "EUR",
+        "NBP",
+        "negatywny"
+      ]
+    },
+    {
+      "id": "legacy-11_vat_marza",
+      "group": "Wbudowane 1.3",
+      "title": "VAT marża",
+      "description": "Procedura VAT marża.",
+      "file": "samples/11_vat_marza.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "marża"
+      ]
+    },
+    {
+      "id": "legacy-12_zaliczka",
+      "group": "Wbudowane 1.3",
+      "title": "Faktura zaliczkowa",
+      "description": "Scenariusz faktury zaliczkowej.",
+      "file": "samples/12_zaliczka.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "ZAL"
+      ]
+    },
+    {
+      "id": "legacy-13_rozliczajaca",
+      "group": "Wbudowane 1.3",
+      "title": "Faktura rozliczająca",
+      "description": "Rozliczenie wcześniejszej faktury zaliczkowej.",
+      "file": "samples/13_rozliczajaca.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "ROZ"
+      ]
+    },
+    {
+      "id": "legacy-14_transakcja_trojstronna",
+      "group": "Wbudowane 1.3",
+      "title": "Transakcja trójstronna",
+      "description": "Scenariusz procedury trójstronnej.",
+      "file": "samples/14_transakcja_trojstronna.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "UE",
+        "trójstronna"
+      ]
+    },
+    {
+      "id": "legacy-15_metoda_kasowa",
+      "group": "Wbudowane 1.3",
+      "title": "Metoda kasowa",
+      "description": "Faktura z oznaczeniem metody kasowej.",
+      "file": "samples/15_metoda_kasowa.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "metoda kasowa"
+      ]
+    },
+    {
+      "id": "legacy-16_samofakturowanie",
+      "group": "Wbudowane 1.3",
+      "title": "Samofakturowanie",
+      "description": "Faktura z oznaczeniem samofakturowania.",
+      "file": "samples/16_samofakturowanie.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "samofakturowanie"
+      ]
+    },
+    {
+      "id": "project-01_VAT_STANDARD_23_PLN",
+      "group": "Scenariusze projektu",
+      "title": "VAT 23% — standard",
+      "description": "Podstawowa faktura krajowa w PLN.",
+      "file": "test-library/project/01_VAT_STANDARD_23_PLN.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "VAT",
+        "23%",
+        "standard"
+      ]
+    },
+    {
+      "id": "project-02_VAT_8_PLN",
+      "group": "Scenariusze projektu",
+      "title": "VAT 8%",
+      "description": "Faktura ze stawką VAT 8%.",
+      "file": "test-library/project/02_VAT_8_PLN.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "VAT",
+        "8%"
+      ]
+    },
+    {
+      "id": "project-03_VAT_5_PLN",
+      "group": "Scenariusze projektu",
+      "title": "VAT 5%",
+      "description": "Faktura ze stawką VAT 5%.",
+      "file": "test-library/project/03_VAT_5_PLN.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "VAT",
+        "5%"
+      ]
+    },
+    {
+      "id": "project-04_VAT_0_PLN",
+      "group": "Scenariusze projektu",
+      "title": "VAT 0%",
+      "description": "Faktura ze stawką 0%.",
+      "file": "test-library/project/04_VAT_0_PLN.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "VAT",
+        "0%"
+      ]
+    },
+    {
+      "id": "project-05_WALUTA_EUR",
+      "group": "Scenariusze projektu",
+      "title": "Faktura walutowa EUR",
+      "description": "Scenariusz waluty obcej i kontroli kursu.",
+      "file": "test-library/project/05_WALUTA_EUR.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Faktura",
+        "walutowa",
+        "EUR"
+      ]
+    },
+    {
+      "id": "project-06_GOTOWKA",
+      "group": "Scenariusze projektu",
+      "title": "Płatność gotówką",
+      "description": "Forma płatności: gotówka.",
+      "file": "test-library/project/06_GOTOWKA.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "P",
+        "atno",
+        "got",
+        "wk"
+      ]
+    },
+    {
+      "id": "project-07_KARTA",
+      "group": "Scenariusze projektu",
+      "title": "Płatność kartą",
+      "description": "Forma płatności: karta.",
+      "file": "test-library/project/07_KARTA.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "P",
+        "atno",
+        "kart"
+      ]
+    },
+    {
+      "id": "project-08_PRZELEW_RACHUNEK",
+      "group": "Scenariusze projektu",
+      "title": "Przelew + rachunek",
+      "description": "Termin płatności i numer rachunku do kontroli Białej Listy.",
+      "file": "test-library/project/08_PRZELEW_RACHUNEK.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Przelew",
+        "rachunek"
+      ]
+    },
+    {
+      "id": "project-09_MPP",
+      "group": "Scenariusze projektu",
+      "title": "Mechanizm podzielonej płatności",
+      "description": "Scenariusz MPP.",
+      "file": "test-library/project/09_MPP.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Mechanizm",
+        "podzielonej",
+        "p",
+        "atno"
+      ]
+    },
+    {
+      "id": "project-10_PODMIOT3",
+      "group": "Scenariusze projektu",
+      "title": "Podmiot3 / wystawca",
+      "description": "Dodatkowy podmiot na fakturze.",
+      "file": "test-library/project/10_PODMIOT3.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Podmiot3",
+        "wystawca"
+      ]
+    },
+    {
+      "id": "project-11_GTUCN",
+      "group": "Scenariusze projektu",
+      "title": "GTU / CN",
+      "description": "Dodatkowe klasyfikacje i oznaczenia.",
+      "file": "test-library/project/11_GTUCN.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "GTU",
+        "CN"
+      ]
+    },
+    {
+      "id": "project-12_RABAT",
+      "group": "Scenariusze projektu",
+      "title": "Rabat",
+      "description": "Scenariusz odliczenia/rabatu.",
+      "file": "test-library/project/12_RABAT.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Rabat"
+      ]
+    },
+    {
+      "id": "project-13_OBCIAZENIE",
+      "group": "Scenariusze projektu",
+      "title": "Dodatkowe obciążenie",
+      "description": "Scenariusz dodatkowego obciążenia, np. transport.",
+      "file": "test-library/project/13_OBCIAZENIE.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Dodatkowe",
+        "obci",
+        "enie"
+      ]
+    },
+    {
+      "id": "project-14_KOREKTA_ROZNICOWA",
+      "group": "Scenariusze projektu",
+      "title": "Korekta różnicowa",
+      "description": "Korekta ze zmianą wartości na minus.",
+      "file": "test-library/project/14_KOREKTA_ROZNICOWA.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Korekta",
+        "r",
+        "nicowa"
+      ]
+    },
+    {
+      "id": "project-15_KOREKTA_STAN_PRZED",
+      "group": "Scenariusze projektu",
+      "title": "Korekta — StanPrzed",
+      "description": "Scenariusz korekty prezentującej stan przed zmianą.",
+      "file": "test-library/project/15_KOREKTA_STAN_PRZED.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Korekta",
+        "StanPrzed"
+      ]
+    },
+    {
+      "id": "project-16_ZALICZKOWA",
+      "group": "Scenariusze projektu",
+      "title": "Zaliczka",
+      "description": "Faktura zaliczkowa.",
+      "file": "test-library/project/16_ZALICZKOWA.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Zaliczka"
+      ]
+    },
+    {
+      "id": "project-17_ROZLICZENIOWA",
+      "group": "Scenariusze projektu",
+      "title": "Rozliczenie zaliczki",
+      "description": "Faktura rozliczająca zaliczkę.",
+      "file": "test-library/project/17_ROZLICZENIOWA.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Rozliczenie",
+        "zaliczki"
+      ]
+    },
+    {
+      "id": "project-18_WDT",
+      "group": "Scenariusze projektu",
+      "title": "WDT — fixture",
+      "description": "WDT w kontrolowanym pliku projektowym.",
+      "file": "test-library/project/18_WDT.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "WDT",
+        "fixture"
+      ]
+    },
+    {
+      "id": "project-19_EXPORT",
+      "group": "Scenariusze projektu",
+      "title": "Eksport — fixture",
+      "description": "Eksport towarów w kontrolowanym pliku projektowym.",
+      "file": "test-library/project/19_EXPORT.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Eksport",
+        "fixture"
+      ]
+    },
+    {
+      "id": "project-20_WIELE_STAWEK",
+      "group": "Scenariusze projektu",
+      "title": "Wiele stawek VAT",
+      "description": "Jedna faktura z więcej niż jedną stawką VAT.",
+      "file": "test-library/project/20_WIELE_STAWEK.xml",
+      "kind": "xml",
+      "expected": "scenariusz",
+      "tags": [
+        "Wiele",
+        "stawek",
+        "VAT"
+      ]
+    },
+    {
+      "id": "negative-NEG_01_invalid_nip",
+      "group": "Testy negatywne",
+      "title": "Błędny NIP",
+      "description": "NIP sprzedawcy ma nieprawidłowy format/sumę kontrolną.",
+      "file": "test-library/negative/NEG_01_invalid_nip.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_02_wrong_vat_math",
+      "group": "Testy negatywne",
+      "title": "Błędna matematyka VAT",
+      "description": "Kwota VAT jest celowo niezgodna z podstawą i stawką.",
+      "file": "test-library/negative/NEG_02_wrong_vat_math.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_03_wrong_total",
+      "group": "Testy negatywne",
+      "title": "Błędna suma P_15",
+      "description": "Kwota należności ogółem jest celowo nieprawidłowa.",
+      "file": "test-library/negative/NEG_03_wrong_total.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_04_missing_buyer",
+      "group": "Testy negatywne",
+      "title": "Brak nabywcy",
+      "description": "Usunięto sekcję Podmiot2.",
+      "file": "test-library/negative/NEG_04_missing_buyer.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_05_missing_invoice_number",
+      "group": "Testy negatywne",
+      "title": "Brak numeru faktury",
+      "description": "Usunięto pole P_2.",
+      "file": "test-library/negative/NEG_05_missing_invoice_number.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_06_issue_date_after_sale_limit",
+      "group": "Testy negatywne",
+      "title": "Termin wystawienia",
+      "description": "Scenariusz do kontroli terminów wystawienia.",
+      "file": "test-library/negative/NEG_06_issue_date_after_sale_limit.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_07_bank_account_not_whitelist",
+      "group": "Testy negatywne",
+      "title": "Rachunek poza Białą Listą",
+      "description": "Scenariusz integracyjny kontroli NIP + rachunek.",
+      "file": "test-library/negative/NEG_07_bank_account_not_whitelist.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_08_vies_inactive",
+      "group": "Testy negatywne",
+      "title": "Nieaktywny VIES",
+      "description": "Scenariusz integracyjny nieaktywnego numeru VAT UE.",
+      "file": "test-library/negative/NEG_08_vies_inactive.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_09_wrong_nbp_rate",
+      "group": "Testy negatywne",
+      "title": "Nieprawidłowy kurs NBP",
+      "description": "Scenariusz integracyjny rozbieżności kursowej.",
+      "file": "test-library/negative/NEG_09_wrong_nbp_rate.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "negative-NEG_10_duplicate_invoice_number",
+      "group": "Testy negatywne",
+      "title": "Duplikat numeru",
+      "description": "Scenariusz do kontroli duplikatów w zbiorze.",
+      "file": "test-library/negative/NEG_10_duplicate_invoice_number.xml",
+      "kind": "xml",
+      "expected": "błąd/ostrzeżenie",
+      "tags": [
+        "negatywny"
+      ]
+    },
+    {
+      "id": "real-REAL_01_SHELL_F_5069K1_1218_26_SNAPSHOT",
+      "group": "Realne referencje",
+      "title": "Shell Polska — F 5069K1/1218/26",
+      "description": "Realna publiczna faktura z numerem KSeF; paliwo, Podmiot3, CN/GTU, karta.",
+      "file": "test-library/real-reference/REAL_01_SHELL_F_5069K1_1218_26_SNAPSHOT.txt",
+      "kind": "reference",
+      "expected": "referencja",
+      "tags": [
+        "realna",
+        "KSeF"
+      ]
+    },
+    {
+      "id": "real-REAL_02_MFAKTORING_321_2026_F_KOR_SNAPSHOT",
+      "group": "Realne referencje",
+      "title": "mFaktoring — 321/2026/F/KOR",
+      "description": "Realna publiczna faktura korygująca w EUR z numerem KSeF.",
+      "file": "test-library/real-reference/REAL_02_MFAKTORING_321_2026_F_KOR_SNAPSHOT.txt",
+      "kind": "reference",
+      "expected": "referencja",
+      "tags": [
+        "realna",
+        "KSeF"
+      ]
+    },
+    {
+      "id": "real-REAL_03_LEROY_2026_08_003187_SNAPSHOT",
+      "group": "Realne referencje",
+      "title": "Leroy Merlin — 2026-08-003187",
+      "description": "Realna publiczna faktura z wieloma pozycjami i danymi dodatkowymi.",
+      "file": "test-library/real-reference/REAL_03_LEROY_2026_08_003187_SNAPSHOT.txt",
+      "kind": "reference",
+      "expected": "referencja",
+      "tags": [
+        "realna",
+        "KSeF"
+      ]
+    },
+    {
+      "id": "real-REAL_04_ORLEN_F5639_4699_26_SNAPSHOT",
+      "group": "Realne referencje",
+      "title": "ORLEN — F5639/4699/26",
+      "description": "Realna publiczna faktura paliwowa z Podmiot3 i numerem KSeF.",
+      "file": "test-library/real-reference/REAL_04_ORLEN_F5639_4699_26_SNAPSHOT.txt",
+      "kind": "reference",
+      "expected": "referencja",
+      "tags": [
+        "realna",
+        "KSeF"
+      ]
+    },
+    {
+      "id": "real-REAL_05_PEKAO_27_N28843_L_0326_SNAPSHOT",
+      "group": "Realne referencje",
+      "title": "Pekao Leasing — 27/N28843/L/0326",
+      "description": "Realna publiczna faktura leasingowa z rachunkiem i terminem płatności.",
+      "file": "test-library/real-reference/REAL_05_PEKAO_27_N28843_L_0326_SNAPSHOT.txt",
+      "kind": "reference",
+      "expected": "referencja",
+      "tags": [
+        "realna",
+        "KSeF"
+      ]
+    }
+  ]
+}

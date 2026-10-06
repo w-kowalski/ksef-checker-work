@@ -1,0 +1,18 @@
+PUBLICZNA FAKTURA / WIZUALIZACJA KSeF — SNAPSHOT METADANYCH
+Źródło: https://forum.insert.com.pl/applications/core/interface/file/attachment.php?id=95078&key=5c94deda060ebb6cfbc75375f289b667
+
+Numer faktury: F 5069K1/1218/26
+Numer KSeF: 5261009190-20260425-6D0479400000-39
+Data wystawienia: 2026-04-25
+Sprzedawca: Shell Polska sp. z o.o. | NIP 5261009190
+Nabywca: GEXAM NDT MARCIN PRZYBYLSKI, GRZEGORZ MACIEJEWSKI S.C. | NIP 7743218786
+Waluta: PLN
+Kwota brutto: 265.40
+
+Scenariusz testowy:
+Faktura podstawowa; paliwo; Podmiot3/wystawca; CN; GTU; płatność kartą; stawka 8%
+
+UWAGA:
+Ten plik TXT jest lokalnym snapshotem metadanych z publicznie dostępnej wizualizacji.
+Nie jest oryginalnym plikiem XML pobranym z produkcyjnego KSeF.
+Oryginalne źródło otwiera plik .url obok.

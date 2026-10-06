@@ -1,0 +1,18 @@
+PUBLICZNA FAKTURA / WIZUALIZACJA KSeF — SNAPSHOT METADANYCH
+Źródło: https://www.scribd.com/document/1050314868/invoice-1060473
+
+Numer faktury: F5639/4699/26
+Numer KSeF: 7740001454-20260609-96F546000000-66
+Data wystawienia: 2026-06-09
+Sprzedawca: ORLEN S.A. | NIP 7740001454
+Nabywca: ETERNIS Sp. z o.o. Sp.k. | NIP 5213808131
+Waluta: PLN
+Kwota brutto: 54.84
+
+Scenariusz testowy:
+Paliwo LPG; Podmiot3/stacja; dane pojazdu; dodatkowe opisy; gotówka
+
+UWAGA:
+Ten plik TXT jest lokalnym snapshotem metadanych z publicznie dostępnej wizualizacji.
+Nie jest oryginalnym plikiem XML pobranym z produkcyjnego KSeF.
+Oryginalne źródło otwiera plik .url obok.

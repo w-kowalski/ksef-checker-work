@@ -1,0 +1,18 @@
+PUBLICZNA FAKTURA / WIZUALIZACJA KSeF — SNAPSHOT METADANYCH
+Źródło: https://www.scribd.com/document/1008074747/27-N28843-L-0326
+
+Numer faktury: 27/N28843/L/0326
+Numer KSeF: 7121016682-20260302-9E0C20400194-4B
+Data wystawienia: 2026-03-02
+Sprzedawca: PEKAO LEASING Sp. z o.o. | NIP 7121016682
+Nabywca: KIN-BUD Karolina Bugaj | NIP 8371680045
+Waluta: PLN
+Kwota brutto: 1440.31
+
+Scenariusz testowy:
+Leasing; rachunek bankowy; termin płatności; numer umowy; rozbicie kapitał/odsetki
+
+UWAGA:
+Ten plik TXT jest lokalnym snapshotem metadanych z publicznie dostępnej wizualizacji.
+Nie jest oryginalnym plikiem XML pobranym z produkcyjnego KSeF.
+Oryginalne źródło otwiera plik .url obok.

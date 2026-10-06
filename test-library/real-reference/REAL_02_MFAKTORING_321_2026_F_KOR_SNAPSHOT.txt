@@ -1,0 +1,18 @@
+PUBLICZNA FAKTURA / WIZUALIZACJA KSeF — SNAPSHOT METADANYCH
+Źródło: https://forum.insert.com.pl/applications/core/interface/file/attachment.php?id=85306&key=19a7c99f4e8e1c1ecc6d678b0d148174
+
+Numer faktury: 321/2026/F/KOR
+Numer KSeF: 5261020062-20260202-0C0060740F8C-D8
+Data wystawienia: 2026-02-02
+Sprzedawca: mFaktoring S.A. | NIP 5261020062
+Nabywca: EUROTTER LOGISTYKA SP. Z O.O. S.K.A. | NIP 7010354387
+Waluta: EUR
+Kwota brutto: —
+
+Scenariusz testowy:
+Faktura korygująca; EUR; korekta pozycji; odniesienie do faktury pierwotnej; wiele pozycji
+
+UWAGA:
+Ten plik TXT jest lokalnym snapshotem metadanych z publicznie dostępnej wizualizacji.
+Nie jest oryginalnym plikiem XML pobranym z produkcyjnego KSeF.
+Oryginalne źródło otwiera plik .url obok.
