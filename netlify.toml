@@ -2,8 +2,90 @@
   publish = "."
   functions = "netlify/functions"
 
+# Każda znana trasa API jest mapowana jawnie do jednej funkcji serverless.
+# Nie używamy :splat w query stringu, bo Netlify nie wspiera takiego podstawienia.
+
+[[redirects]]
+  from = "/api/news"
+  to = "/.netlify/functions/api?route=news"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/audit"
+  to = "/.netlify/functions/api?route=audit"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/api?route=health"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/qa/server"
+  to = "/.netlify/functions/api?route=qa/server"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/legal/status"
+  to = "/.netlify/functions/api?route=legal/status"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/xsd/status"
+  to = "/.netlify/functions/api?route=xsd/status"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/xsd/sync"
+  to = "/.netlify/functions/api?route=xsd/sync"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/xsd/validate"
+  to = "/.netlify/functions/api?route=xsd/validate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/toolbox/contractor"
+  to = "/.netlify/functions/api?route=toolbox/contractor"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/toolbox/bank"
+  to = "/.netlify/functions/api?route=toolbox/bank"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/toolbox/vies"
+  to = "/.netlify/functions/api?route=toolbox/vies"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/toolbox/nbp"
+  to = "/.netlify/functions/api?route=toolbox/nbp"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/toolbox/interest"
+  to = "/.netlify/functions/api?route=toolbox/interest"
+  status = 200
+  force = true
+
+# Awaryjny routing dla ewentualnych przyszłych tras.
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api?route=:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true

@@ -42,8 +42,8 @@ async function api(url,opts={}){const u=new URL(typeof url==='string'?url:url.ur
  if(path==='/api/audit')return json(await audit(JSON.parse(opts.body||'{}')))
  if(path==='/api/xsd/validate')return json({available:false,ok:null,errors:[{message:'Tryb WORK: pełna walidacja XSD wymaga backendu lub osobnego silnika XSD.'}],engine:'WORK / browser'})
  if(path==='/api/xsd/status')return json({available:false,mode:'work',message:'Pełny XSD wyłączony w wersji statycznej.'})
- if(path==='/api/health')return json({ok:true,version:'2.6.2-WORK-ONLINE',pdfParserInstalled:!!(window.pdfjsLib||window.PDFJS),pdfRendererInstalled:!!(window.pdfjsLib||window.PDFJS)})
- if(path==='/api/qa/server')return json({version:'2.6.2-WORK-ONLINE',platform:'browser',node:'nie dotyczy',files:[],xsd:{available:false},pdfParserInstalled:!!(window.pdfjsLib||window.PDFJS),pdfRendererInstalled:!!(window.pdfjsLib||window.PDFJS),excelInstalled:!!window.ExcelJS,time:new Date().toISOString()})
+ if(path==='/api/health')return json({ok:true,version:'2.6.3-WORK-ONLINE',pdfParserInstalled:!!(window.pdfjsLib||window.PDFJS),pdfRendererInstalled:!!(window.pdfjsLib||window.PDFJS)})
+ if(path==='/api/qa/server')return json({version:'2.6.3-WORK-ONLINE',platform:'browser',node:'nie dotyczy',files:[],xsd:{available:false},pdfParserInstalled:!!(window.pdfjsLib||window.PDFJS),pdfRendererInstalled:!!(window.pdfjsLib||window.PDFJS),excelInstalled:!!window.ExcelJS,time:new Date().toISOString()})
  if(path==='/api/toolbox/contractor')return json(await toolboxContractor(u.searchParams.get('nip')||'',u.searchParams.get('date')||'',u.searchParams.get('country')||'',u.searchParams.get('vat')||''))
  if(path==='/api/toolbox/bank'){const nip=digits(u.searchParams.get('nip')),account=digits(u.searchParams.get('account')),date=u.searchParams.get('date')||'';let r;try{r=await whiteListBank(nip,account,date)}catch{throw new Error('Przeglądarka lub sieć firmowa zablokowała API Białej Listy MF (CORS).')}return json({assigned:clean(r?.assigned).toUpperCase()==='TAK',requestId:r?.requestId||'',requestDateTime:r?.requestDateTime||'',nip,account,date})}
  if(path==='/api/toolbox/vies')return json(await viesCheck(u.searchParams.get('country')||'',u.searchParams.get('vat')||''))
@@ -54,5 +54,5 @@ async function api(url,opts={}){const u=new URL(typeof url==='string'?url:url.ur
  }catch(e){return json({error:e?.message||String(e)},503)}}
 window.fetch=api;
 window.ksefWork={mode:true,nativeFetch,extractPdfPayload,whiteListSearch,whiteListBank,nbpRate,viesCheck};
-document.addEventListener('DOMContentLoaded',()=>{const note=document.createElement('div');note.className='work-mode-banner';note.innerHTML='<b>WORK / WEB</b><span>Tryb WORK ONLINE 2.6.2. XML i PDF są analizowane w przeglądarce. Biała Lista MF, VIES, NBP i wiadomości korzystają z warstwy serverless na Netlify. Gazeta ma automatyczny fallback do ostatniej zapisanej paczki wiadomości.</span>';document.body.prepend(note)});
+document.addEventListener('DOMContentLoaded',()=>{const note=document.createElement('div');note.className='work-mode-banner';note.innerHTML='<b>WORK / WEB</b><span>Tryb WORK ONLINE 2.6.3. XML i PDF są analizowane w przeglądarce. Biała Lista MF, VIES, NBP i wiadomości korzystają z warstwy serverless na Netlify. Gazeta ma automatyczny fallback do ostatniej zapisanej paczki wiadomości.</span>';document.body.prepend(note)});
 })();
