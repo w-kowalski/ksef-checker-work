@@ -1,0 +1,45 @@
+KSeF Checker Pro 2.4.0 — źródła założeń Toolboxa (stan sprawdzenia: 24.09.2026)
+
+1. Mechanizm podzielonej płatności (MPP)
+   https://www.podatki.gov.pl/podatki-firmowe/vat/poradniki-i-informatory/mechanizm-podzielonej-platnosci-mpp
+   Podstawowy test: należność ogółem przekracza 15 000 zł, co najmniej jedna pozycja z załącznika nr 15, strony są podatnikami VAT.
+
+2. Terminy wystawiania faktur / KSeF
+   https://ksef.podatki.gov.pl/ksef-news/wystawianie-i-otrzymywanie-faktur/
+   Zasada ogólna: do 15. dnia kolejnego miesiąca; KSeF nie zmienia ustawowych terminów wystawiania.
+   Dodatkowe terminy szczególne oparto na materiałach informacyjnych MF dotyczących fakturowania.
+
+3. Kursy NBP
+   API: https://api.nbp.pl/
+   Ręczna weryfikacja: https://nbp.pl/statystyka-i-sprawozdawczosc/kursy/archiwum-kursow-srednich-tabela-a/
+   Toolbox korzysta z publicznego API NBP i pod wynikiem daje bezpośredni link do oficjalnego archiwum NBP.
+
+4. Odsetki za zwłokę od zaległości podatkowych
+   https://www.zus.pl/en/baza-wiedzy/skladki-wskazniki-odsetki/odsetki/wysokosc-stawek-odsetek-podatkowych-za-zwloke-od-nieterminowo-regulowanych-skladek-na-ubezpieczenia-spoleczne
+   https://eli.gov.pl/eli/MP/2026/269/ogl
+   Kalkulator pobiera historię stawki podstawowej z oficjalnej strony ZUS; obniżoną i podwyższoną wylicza jako odpowiednio 50% i 150% stawki podstawowej. Ma zweryfikowaną tabelę awaryjną na wypadek niedostępności źródła.
+
+5. Odsetki ustawowe za opóźnienie w transakcjach handlowych
+   M.P. 2026 poz. 642 — obwieszczenie z 22.06.2026.
+   1.07–31.12.2026: 13,75% standardowo; 11,75% gdy dłużnikiem jest publiczny podmiot leczniczy.
+
+6. Biała Lista MF
+   https://wl-api.mf.gov.pl/
+   Lokalny serwer pośredniczy w zapytaniach o NIP i parę NIP + rachunek.
+
+7. VIES
+   https://ec.europa.eu/taxation_customs/vies/
+   Lokalny serwer odpytuje usługę VIES; zakres nazwy/adresu zależy od państwa członkowskiego.
+
+UWAGA: kalkulatory są narzędziami roboczymi. Nietypowe stany faktyczne i okresy obejmujące zmianę stawek wymagają dodatkowej weryfikacji.
+
+8. Leasing samochodów osobowych — limity od 1.01.2026
+   https://www.podatki.gov.pl/media/rr5pgg25/podatki-2026-przewodnik-dla-inwestorow.pdf
+   Limity: 225 000 zł — elektryczny/wodorowy; 150 000 zł — CO2 < 50 g/km; 100 000 zł — CO2 >= 50 g/km.
+   Dla leasingu ograniczenie dotyczy części opłaty stanowiącej spłatę wartości samochodu. Interpretacja: https://eureka.mf.gov.pl/informacje/podglad/572486
+
+9. Ubezpieczenie samochodu osobowego
+   https://eureka.mf.gov.pl/informacje/podglad/679126
+   Dla składki zależnej od wartości samochodu limit pozostaje 150 000 zł w proporcji do wartości przyjętej do ubezpieczenia.
+   https://eureka.mf.gov.pl/informacje/podglad/389055
+   Limit wartościowy dotyczy np. AC; OC, którego składka nie zależy od wartości auta, nie jest ograniczane tym konkretnym limitem.

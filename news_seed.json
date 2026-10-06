@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-09-24T14:00:00+02:00",
+  "articles": [
+    {
+      "title": "Umowy o dzieło najczęściej zawierane na Mazowszu na jeden dzień",
+      "summary": "ZUS publikuje najnowsze dane dotyczące zgłaszanych umów o dzieło; materiał jest przydatny dla księgowych i kadr przy śledzeniu praktyki raportowania RUD.",
+      "url": "https://www.zus.pl/en/-/umowy-o-dzie%C5%82o-najcz%C4%99%C5%9Bciej-zawierane-na-mazowszu-na-jeden-dzie%C5%84",
+      "source": "ZUS",
+      "sourceId": "zus",
+      "date": "2026-09-23",
+      "topic": "ZUS",
+      "planned": false,
+      "official": true
+    },
+    {
+      "title": "Przedsiębiorcy otrzymali 4,5 mld zł wsparcia w ramach wakacji składkowych",
+      "summary": "Oficjalna informacja ZUS o wykorzystaniu wakacji składkowych przez przedsiębiorców i skali udzielonego wsparcia.",
+      "url": "https://www.zus.pl/en/-/przedsi%C4%99biorcy-otrzymali-4-5-mld-z%C5%82-wsparcia-w-ramach-wakacji-sk%C5%82adkowych",
+      "source": "ZUS",
+      "sourceId": "zus",
+      "date": "2026-09-17",
+      "topic": "ZUS",
+      "planned": false,
+      "official": true
+    },
+    {
+      "title": "Fundacje rodzinne - wzrosną podatki i niepewność",
+      "summary": "Prawo.pl opisuje najnowszy kierunek zmian w opodatkowaniu fundacji rodzinnych, w tym złagodzenie części wcześniejszych założeń Ministerstwa Finansów.",
+      "url": "https://www.prawo.pl/podatki/fundacje-rodzinne-wzrosna-podatki-i-niepewnosc%2C1553402.html",
+      "source": "Prawo.pl",
+      "sourceId": "prawo",
+      "date": "2026-09-24",
+      "topic": "PIT / CIT",
+      "planned": true,
+      "official": false
+    },
+    {
+      "title": "PIT 2027 - wyższe podatki dla programistów i wspólników",
+      "summary": "Omówienie przyjętego przez rząd projektu zmian w PIT i ryczałcie oraz jego możliwych skutków dla części podatników prowadzących działalność.",
+      "url": "https://www.prawo.pl/podatki/pit-2027-zmiany-dla-programistow-i-wspolnikow-spolek%2C1553299.html",
+      "source": "Prawo.pl",
+      "sourceId": "prawo",
+      "date": "2026-09-23",
+      "topic": "PIT / CIT",
+      "planned": true,
+      "official": false
+    },
+    {
+      "title": "KSeF nie zmienił zasad wystawiania faktur przez podatników zwolnionych z VAT",
+      "summary": "Materiał wyjaśnia zasady fakturowania w KSeF przez podatników korzystających ze zwolnienia z VAT i wskazuje wyjątki od obowiązku.",
+      "url": "https://www.prawo.pl/podatki/ksef-nie-zmienil-zasad-wystawiania-faktur-przez-podatnikow-zwolnionych-z-vat%2C1553188.html",
+      "source": "Prawo.pl",
+      "sourceId": "prawo",
+      "date": "2026-09-21",
+      "topic": "VAT / KSeF",
+      "planned": false,
+      "official": false
+    },
+    {
+      "title": "Ministerstwo Finansów tworzy cyfrowe rozwiązania w systemie podatkowym",
+      "summary": "MF informuje o projekcie e-VAT i KeKR. Jednym z kierunków jest wstępnie wypełniony JPK_VAT z deklaracją na podstawie danych posiadanych przez KAS.",
+      "url": "https://www.gov.pl/web/finanse/ministerstwo-finansow-tworzy-cyfrowe-rozwiazania-w-systemie-podatkowym",
+      "source": "Ministerstwo Finansów",
+      "sourceId": "mf",
+      "date": "2026-09-18",
+      "topic": "VAT / KSeF",
+      "planned": true,
+      "official": true
+    },
+    {
+      "title": "Opodatkowanie podatkiem VAT działalności rad rodziców w szkołach",
+      "summary": "Oficjalna informacja serwisu podatki.gov.pl dotycząca traktowania działalności rad rodziców na gruncie podatku VAT.",
+      "url": "https://podatki.gov.pl/aktualnosci",
+      "source": "podatki.gov.pl",
+      "sourceId": "podatki-gov",
+      "date": "2026-09-18",
+      "topic": "VAT / KSeF",
+      "planned": false,
+      "official": true
+    },
+    {
+      "title": "MF: KSeF sam przygotuje deklarację VAT. Eksperci wskazują na ograniczenia automatyzacji",
+      "summary": "INFOR opisuje plany wykorzystania danych KSeF do automatycznego przygotowywania JPK_V7 i deklaracji VAT oraz komentarze ekspertów dotyczące kontekstu biznesowego transakcji.",
+      "url": "https://ksiegowosc.infor.pl/podatki/vat/rozliczenia-vat/7625685%2Cmf-ksef-sam-przygotuje-deklaracje-vat-eksperci-sa-sceptyczni-problem-tkwi-w-kontekscie-biznesowym-i-mertorycznej-weryfikacji-transakcji.html",
+      "source": "INFOR Księgowość",
+      "sourceId": "infor",
+      "date": "2026-08-24",
+      "topic": "VAT / KSeF",
+      "planned": true,
+      "official": false
+    },
+    {
+      "title": "Zmiany w VAT od 2027 roku. Mniej formalności, ale też nowe obowiązki dla przedsiębiorców",
+      "summary": "Przegląd projektowanych zmian w VAT od 2027 r. z perspektywy obowiązków przedsiębiorców i księgowych.",
+      "url": "https://ksiegowosc.infor.pl/podatki/vat/7649768%2Czmiany-w-vat-od-2027-roku-mniej-formalnosci-ale-tez-nowe-obowiazki-d.html",
+      "source": "INFOR Księgowość",
+      "sourceId": "infor",
+      "date": "2026-09-03",
+      "topic": "VAT / KSeF",
+      "planned": true,
+      "official": false
+    },
+    {
+      "title": "Zapowiedź zmian w podatkach: rząd opublikował szczegóły projektu",
+      "summary": "PIT.pl podsumowuje założenia planowanych zmian w systemie podatkowym, w tym propozycje dotyczące progów i stawek podatkowych.",
+      "url": "https://www.pit.pl/aktualnosci/zapowiedz-rewolucji-w-podatkach-rzad-opublikowal-szczegoly-projektu-ile-panstwo-chce-zyskac-na-zmianach",
+      "source": "PIT.pl",
+      "sourceId": "pit",
+      "date": "2026-08-20",
+      "topic": "PIT / CIT",
+      "planned": true,
+      "official": false
+    }
+  ]
+}

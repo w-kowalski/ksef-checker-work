@@ -1,0 +1,27 @@
+KSeF Checker Pro 2.5.1 — wersjonowane reguły i źródła (stan 28.09.2026)
+
+1. FA(3) od 1.02.2026
+https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/struktura-logiczna-fa-3/
+
+2. Stawki i limity PIT 2026
+https://www.podatki.gov.pl/podatki-firmowe/pit/stawki-i-limity
+
+3. Podatek liniowy
+https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-podatkiem-liniowym
+
+4. Składka zdrowotna ZUS
+https://www.zus.pl/pl/firmy/przedsiebiorco-przeczytaj-wazne/kalkulator-skladki-zdrowotnej
+
+5. Sprzedaż środków trwałych a roczne DRA/RCA
+https://www.zus.pl/en/-/od-1-maja-2026-r.-obowi%C4%85zuj%C4%85-nowe-wzory-formularzy-zus-dra-i-zus-rca
+
+6. Mechanizm podzielonej płatności
+https://www.podatki.gov.pl/podatki-firmowe/vat/poradniki-i-informatory/mechanizm-podzielonej-platnosci-mpp
+
+7. API NBP
+https://api.nbp.pl/
+
+8. Limity samochodów od 2026 r.
+https://www.podatki.gov.pl/media/rr5pgg25/podatki-2026-przewodnik-dla-inwestorow.pdf
+
+Zakładka „Reguły i źródła” pokazuje datę obowiązywania i datę ostatniej merytorycznej weryfikacji. Test online sprawdza dostępność wybranych źródeł; nie oznacza automatycznego potwierdzenia, że treść aktu prawnego się nie zmieniła.

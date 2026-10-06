@@ -1,0 +1,48 @@
+KSeF Checker Pro 2.4.0 - jak walidowac aplikacje
+
+NAJSZYBCIEJ
+1. Rozpakuj paczke do osobnego folderu.
+2. Uruchom START_CHECKER.bat. Przy pierwszym uruchomieniu moze zostac wykonane npm install dla lokalnego parsera PDF.
+3. Wejdz w Testy / QA i kliknij Uruchom pelny test.
+4. Oczekiwany stan: 0 czerwonych bledow. Zolte ostrzezenia moga wynikac z braku dostepu do XSD lub zewnetrznych rejestrow.
+
+TEST PDF
+1. Na ekranie Analiza faktury kliknij PDF - faktura testowa.
+2. Sprawdz, czy zostaly odczytane: FV/09/2026/123, 24.09.2026, NIP 7018107174 i 5250001003, netto 1000, VAT 230, brutto 1230, rachunek 61109010140000071219812874.
+3. Sprawdz panel Pewnosc odczytu i mozliwosc recznej korekty pol.
+4. Sprawdz dwie kolumny kontrahentow i podglad oryginalnego PDF.
+5. XSD dla PDF powinno miec status N/D, a nie blad.
+6. Po recznej zmianie odczytanego pola kliknij Zastosuj poprawki i sprawdz ponowna analize.
+
+TEST WLASNYCH PDF
+- zacznij od PDF wygenerowanego przez program ksiegowy, z zaznaczalnym tekstem;
+- porownaj pola odczytane przez Checker z dokumentem;
+- przetestuj rozne uklady faktur, waluty, kilka stawek VAT, brak rachunku i kontrahenta zagranicznego;
+- zeskanowany PDF bez tekstu powinien zostac odrzucony z informacja, ze potrzebny jest OCR.
+
+TEST XML
+- otworz 2-3 poprawne i 2-3 negatywne XML-e z Biblioteki;
+- sprawdz XSD FA(3), kontrahentow, rachunek, VIES, NBP i raport;
+- dla XML nadal oczekuj pelnej warstwy KSeF/FA(3).
+
+REGRESJA TOOLBOXA
+- NBP po weekendzie; MPP 15 000,00 i 15 000,01; odsetki przez zmiane stawki; leasing i polisa ponizej/powyzej limitu.
+
+2.5.0 — dodatkowe testy ręczne
+1. Pulpit: sprawdź, czy liczby klientów i historii reagują po dodaniu kartoteki/kontroli.
+2. Klient: ustaw NIP zgodny z historią faktur i sprawdź automatyczne powiązanie kontroli.
+3. Zdrowotna: powiąż profil klienta, wpisz kilka miesięcy i sprawdź prognozę/rezerwę.
+4. Backup: wyeksportuj JSON, zmień kartotekę, przywróć backup.
+5. Import: użyj CLIENT_IMPORT_TEMPLATE.csv i sprawdź mapowanie formy/VAT.
+6. PDF ↔ XML: wczytaj dwa dokumenty tej samej faktury i sprawdź różnice pól.
+7. Reguły: kliknij „Sprawdź dostępność źródeł”. Brak dostępu źródła to ostrzeżenie techniczne, nie automatycznie zmiana prawa.
+8. Analiza wielu PDF: użyj filtrów błędów, rachunków, VAT i odczytu PDF.
+
+
+2.5.1 — AUTOMATYCZNE UZUPEŁNIANIE KLIENTA PO NIP
+1. Dodaj nowego klienta i wpisz poprawny 10-cyfrowy NIP — po ok. 650 ms powinno rozpocząć się pobieranie danych.
+2. Sprawdź automatyczne uzupełnienie: nazwa, status VAT, REGON/KRS, adres.
+3. Jeśli rejestr zwraca rachunki, wybierz jeden z listy i potwierdź zapis w polu Rachunek.
+4. Wpisz błędny NIP z niepoprawną sumą kontrolną — API nie powinno być odpytane.
+5. Kliknij „Pobierz dane” ponownie — wymuś odświeżenie online.
+6. Odśwież stronę i ponownie wpisz ten sam NIP tego samego dnia — powinien zostać użyty lokalny cache.

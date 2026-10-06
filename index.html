@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KSeF Checker Pro — PDF + XML FA(3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">K</div><div><div class="brand-title">KSeF Checker Pro</div><div class="brand-sub">PDF + FA(3) • automatyczna analiza</div></div></div>
+    <nav class="side-nav">
+      <button class="nav-item active" data-view="dashboard">Pulpit</button>
+      <button class="nav-item" data-view="workspace">Analiza faktury</button>
+      <button class="nav-item" data-view="clients">Klienci</button>
+      <button class="nav-item" data-view="testLibrary">Biblioteka testowa</button>
+      <button class="nav-item" data-view="toolbox">Toolbox</button>
+      <button class="nav-item" data-view="taxSimulator">Kalkulator podatkowy</button>
+      <button class="nav-item" data-view="healthCalc">Składka zdrowotna ZUS</button>
+      <button class="nav-item" data-view="taxNews">Gazeta księgowego</button>
+      <button class="nav-item" data-view="history">Historia kontroli</button>
+      <button class="nav-item" data-view="legal">Reguły i źródła</button>
+      <button class="nav-item" data-view="qa">Testy / QA</button>
+      <button class="nav-item" data-view="coverage">Zakres kontroli</button>
+      <button class="nav-item" data-view="about">O projekcie</button>
+    </nav>
+    <div class="sidebar-note"><strong>Prywatność</strong><p>Wersja WORK / WEB: XML i PDF są analizowane bezpośrednio w przeglądarce. Do oficjalnych rejestrów mogą być wysyłane tylko dane potrzebne do weryfikacji, np. NIP, rachunek oraz data.</p></div>
+    <div class="sidebar-footer">WORK / WEB 2.5.1 • bez Node</div>
+  </aside>
+
+  <main class="main">
+    <section id="workspaceView" class="view">
+      <header class="topbar">
+        <div><h1>Diagnostyka faktury</h1><p>Wgraj PDF albo XML FA(3). PDF jest odczytywany i sprawdzany jako treść faktury, a XML dodatkowo przechodzi kontrole struktury KSeF i XSD FA(3).</p></div>
+        <div class="topbar-actions"><button id="openLibraryBtn" class="btn ghost">Biblioteka testowa</button><button id="batchBackBtn" class="btn ghost hidden">← Wróć do listy PDF</button><button id="reportBtn" class="btn primary" disabled>Raport kontroli / PDF</button><button id="printBtn" class="btn ghost" disabled>Drukuj fakturę</button><button id="clearBtn" class="btn ghost" disabled>Wyczyść</button></div>
+      </header>
+
+      <section id="uploadPanel" class="upload-card">
+        <div id="dropZone" class="drop-zone" tabindex="0">
+          <div class="drop-icon">PDF<br><small>XML</small></div><h2>Upuść fakturę PDF lub XML</h2><p>System sam rozpozna format dokumentu</p>
+          <div class="upload-actions"><label class="btn primary" for="fileInput">Wybierz jedną fakturę</label><input id="fileInput" type="file" accept=".pdf,application/pdf,.xml,text/xml,application/xml" hidden><label class="btn ghost batch-select-btn" for="batchPdfInput">Wybierz wiele PDF</label><input id="batchPdfInput" type="file" accept=".pdf,application/pdf" multiple hidden></div>
+          <div class="file-hint"><b>XML:</b> pełna kontrola FA(3) + XSD. <b>PDF:</b> kontrola treści faktury i rejestrów; bez walidacji struktury KSeF. <b>Wiele PDF:</b> wybierz kilkanaście lub więcej dokumentów i otrzymaj jedną listę wyników z rozwijanymi szczegółami. PDF z warstwą tekstową działa od razu, skan wymaga OCR.</div>
+        </div>
+        <div class="sample-box"><div><h3>Przykłady testowe</h3><p>Najwygodniej korzystać teraz z pełnej biblioteki lokalnych faktur. Każdy XML można otworzyć jednym kliknięciem, bez wybierania pliku z dysku.</p><button id="openLibraryFromUpload" class="btn primary library-cta">Otwórz bibliotekę faktur</button></div>
+          <div class="sample-buttons">
+            <button class="sample-btn" data-sample="basic">VAT 23% — poprawna</button>
+            <button class="sample-btn" data-sample="rcGood">Reverse charge — poprawna</button>
+            <button class="sample-btn danger" data-sample="rcBad">Reverse charge — brak P_18</button>
+            <button class="sample-btn" data-sample="correction">Korekta — poprawna</button>
+            <button class="sample-btn danger" data-sample="correctionNoReason">Korekta — bez przyczyny</button>
+            <button class="sample-btn" data-sample="wdt">WDT</button>
+            <button class="sample-btn" data-sample="export">Eksport</button>
+            <button class="sample-btn danger" data-sample="mppBad">MPP — brak adnotacji</button>
+            <button class="sample-btn" data-sample="exempt">Zwolniona</button>
+            <button class="sample-btn danger" data-sample="foreignCurrency">EUR — brak VAT w PLN</button>
+            <button id="pdfSampleBtn" class="sample-btn">PDF — faktura testowa</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="batchPanel" class="batch-panel hidden">
+        <div class="batch-head">
+          <div><span class="eyebrow">Analiza zbiorcza PDF</span><h2>Wiele faktur — jeden przegląd kontroli</h2><p>Dokumenty są analizowane kolejno. W tabeli widzisz wynik ogólny; kliknij wiersz, aby rozwinąć szczegóły konkretnej faktury.</p></div>
+          <div class="batch-actions"><label class="btn primary" for="batchPdfMoreInput">+ Dodaj PDF</label><input id="batchPdfMoreInput" type="file" accept=".pdf,application/pdf" multiple hidden><button id="batchClearBtn" class="btn ghost">Wyczyść listę</button></div>
+        </div>
+        <div class="batch-progress-card">
+          <div class="batch-progress-meta"><b id="batchProgressTitle">Gotowe do analizy</b><span id="batchProgressText">Wybierz pliki PDF.</span></div>
+          <div class="batch-progress-track"><span id="batchProgressBar"></span></div>
+          <div class="batch-summary-stats"><div><span>Faktury</span><b id="batchTotalCount">0</b></div><div class="ok"><span>OK</span><b id="batchOkCount">0</b></div><div class="warn"><span>Ostrzeżenia</span><b id="batchWarnCount">0</b></div><div class="error"><span>Błędy</span><b id="batchErrorCount">0</b></div><div class="failed"><span>Nieodczytane</span><b id="batchFailedCount">0</b></div></div>
+        </div>
+        <div class="batch-filterbar">
+          <input id="batchSearch" class="library-search" type="search" placeholder="Szukaj: numer, plik, sprzedawca…">
+          <select id="batchStatusFilter" class="library-select"><option value="">Wszystkie wyniki</option><option value="error">Tylko błędy</option><option value="warn">Ostrzeżenia</option><option value="partial">Odczyt do sprawdzenia</option><option value="ok">OK</option></select>
+          <select id="batchIssueFilter" class="library-select"><option value="">Wszystkie kontrole</option><option value="bank">Rachunek / Biała Lista</option><option value="vat">VAT / kwoty</option><option value="date">Daty / terminy</option><option value="party">Kontrahenci</option><option value="read">Odczyt PDF</option></select>
+        </div>
+        <div class="batch-table-wrap">
+          <div class="batch-table-head"><span>#</span><span>Faktura / plik</span><span>Sprzedawca</span><span>Data</span><span>Brutto</span><span>Wynik kontroli</span><span>Bł./ostr.</span><span></span></div>
+          <div id="batchRows" class="batch-rows"></div>
+        </div>
+        <div class="batch-footnote">Analiza zbiorcza wykonuje ten sam odczyt PDF i kontrole rejestrowe co pojedyncza faktura. Dokumenty są przetwarzane kolejno, aby nie przeciążać Białej Listy, VIES i NBP.</div>
+      </section>
+
+      <section id="results" class="results hidden">
+        <div id="currentTestBanner" class="test-source-banner hidden"></div>
+        <div class="status-strip">
+          <div class="status-main"><div id="statusIcon" class="status-icon ok">✓</div><div><div id="statusTitle" class="status-title">Plik odczytany</div><div id="statusSubtitle" class="status-subtitle"></div></div></div>
+          <div class="status-stats"><div class="mini-stat"><span>Błędy</span><strong id="errCount">0</strong></div><div class="mini-stat"><span>Ostrzeżenia</span><strong id="warnCount">0</strong></div><div class="mini-stat"><span>Wykonane kontrole</span><strong id="checkCount">0</strong></div></div>
+        </div>
+
+        <div id="profileStrip" class="profile-strip"></div>
+        <div id="xsdStatusStrip" class="xsd-status-strip"><span class="xsd-dot neutral">•</span><div><b>Walidacja XSD FA(3)</b><span id="xsdStatusText">Oczekuje na plik XML.</span></div><a href="https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/struktura-logiczna-fa-3/" target="_blank" rel="noopener">Oficjalna struktura FA(3) ↗</a></div>
+        <section id="pdfReviewCard" class="pdf-review-card hidden">
+          <div class="pdf-review-head"><div><span class="eyebrow">Odczyt z PDF</span><h3>Dane rozpoznane z faktury</h3><p>PDF nie ma pól FA(3), dlatego dane są rozpoznawane z treści dokumentu. Sprawdź najważniejsze wartości przed zaksięgowaniem.</p></div><div id="pdfConfidenceBadge" class="pdf-confidence">—</div></div>
+          <div id="pdfReviewSummary" class="pdf-review-summary"></div>
+          <details id="pdfEditDetails" class="pdf-edit-details"><summary>Edytuj odczytane dane</summary><div class="pdf-edit-grid">
+            <label>Numer faktury<input id="pdfEditNumber"></label><label>Data wystawienia<input id="pdfEditDate" type="date"></label><label>Data sprzedaży/dostawy<input id="pdfEditSaleDate" type="date"></label><label>Waluta<input id="pdfEditCurrency" maxlength="3"></label>
+            <label>Sprzedawca — nazwa<input id="pdfEditSellerName"></label><label>Sprzedawca — NIP<input id="pdfEditSellerNip"></label><label>Nabywca — nazwa<input id="pdfEditBuyerName"></label><label>Nabywca — NIP<input id="pdfEditBuyerNip"></label>
+            <label>Netto<input id="pdfEditNet" type="number" step="0.01"></label><label>VAT<input id="pdfEditVat" type="number" step="0.01"></label><label>Brutto / do zapłaty<input id="pdfEditGross" type="number" step="0.01"></label><label>Dominująca stawka VAT<input id="pdfEditRate" placeholder="23"></label>
+            <label class="span2">Rachunek bankowy<input id="pdfEditBank"></label><label>Termin płatności<input id="pdfEditPaymentDate" type="date"></label>
+          </div><div class="pdf-edit-actions"><button id="pdfApplyEdits" class="btn primary">Zastosuj i sprawdź ponownie</button><span>Zmiana dotyczy tylko bieżącej analizy — oryginalny PDF nie jest modyfikowany.</span></div></details>
+          <details class="pdf-raw-details"><summary>Pokaż tekst odczytany z PDF</summary><pre id="pdfRawText"></pre></details>
+        </section>
+
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="checks">Checker Pro</button>
+          <button class="tab" data-tab="preview">Podgląd faktury</button>
+        </div>
+        <div class="tab-panels">
+          <section id="tab-checks" class="tab-panel active">
+            <div class="checker-layout-head">
+              <div>
+                <span id="contractorDataSourceEyebrow" class="eyebrow">Dane stron z dokumentu + weryfikacja rejestrowa</span>
+                <h2>Kontrahenci</h2>
+                <p class="muted">Sprzedawca i nabywca są pokazani na podstawie danych odczytanych z dokumentu. Przy każdym polu od razu widać wynik kontroli oraz — gdy to możliwe — porównanie z Białą Listą MF lub VIES.</p>
+              </div>
+            </div>
+            <div id="liveAuditStatus" class="live-audit-status idle"><div class="live-audit-spinner"></div><div><strong>Weryfikacja rejestrowa</strong><span id="liveAuditText">Uruchomi się automatycznie po wczytaniu faktury.</span></div></div>
+            <div id="contractorComparison" class="contractor-comparison"></div>
+
+            <div class="document-check-section">
+              <div class="document-check-head">
+                <div><span class="eyebrow">Faktura i rozliczenie</span><h2>Pozostałe kontrole dokumentu</h2><p class="muted">Tutaj pozostają błędy dotyczące kwot, stawek VAT, terminów, płatności oraz — dla XML — elementów FA(3).</p></div>
+              </div>
+              <div id="primaryCheckResult"></div>
+              <details id="fullCheckDetails" class="check-details">
+                <summary id="fullCheckSummary">Pokaż pełne sprawdzenie</summary>
+                <div class="details-body"><div id="checkList" class="check-list"></div></div>
+              </details>
+            </div>
+          </section>
+          <section id="tab-preview" class="tab-panel">
+            <div class="official-preview-shell">
+              <div class="official-preview-head">
+                <div>
+                  <h2 id="previewTitle" class="ksef-preview-screen-title">Podgląd faktury</h2>
+                  <p id="previewDescription">Dla XML widok jest generowany z transformacji FA(3); dla PDF pokazujemy oryginalny dokument.</p>
+                </div>
+                <div class="preview-head-actions"><div id="pdfZoomControls" class="pdf-zoom-controls hidden"><button id="pdfZoomOutBtn" class="btn ghost small" type="button" aria-label="Pomniejsz PDF">−</button><span id="pdfZoomLabel">100%</span><button id="pdfZoomInBtn" class="btn ghost small" type="button" aria-label="Powiększ PDF">+</button></div><button id="pdfPreviewOpenBtn" class="btn ghost small hidden" type="button">Otwórz PDF ↗</button><button id="pdfPreviewReloadBtn" class="btn ghost small hidden" type="button">Odśwież podgląd</button><span id="officialPreviewBadge" class="official-source-badge">Ładowanie transformacji…</span></div>
+              </div>
+              <div id="officialPreviewNotice" class="official-preview-notice hidden"></div>
+              <div class="official-preview-window">
+                <div id="pdfCanvasViewer" class="pdf-canvas-viewer hidden" aria-label="Podgląd oryginalnego PDF">
+                  <div id="pdfCanvasStatus" class="pdf-canvas-status">Przygotowuję podgląd PDF…</div>
+                  <div id="pdfCanvasPages" class="pdf-canvas-pages"></div>
+                </div>
+                <iframe id="officialPreviewFrame" title="Podgląd faktury FA(3)" sandbox="allow-same-origin"></iframe>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+
+
+    <section id="testLibraryView" class="view">
+      <header class="topbar simple">
+        <div><h1>Biblioteka faktur testowych</h1><p>Faktury są zapisane bezpośrednio w projekcie. Kliknij dowolny XML, aby natychmiast uruchomić ten sam parser, podgląd i Checker Pro — bez ręcznego uploadu.</p></div>
+        <div class="library-counter"><strong id="libraryXmlCount">0</strong><span>lokalnych XML</span></div>
+      </header>
+      <div class="library-note"><b>Realne referencje</b> są zapisane lokalnie jako snapshot metadanych, ponieważ publicznie dostępna wizualizacja nie daje nam oryginalnego XML produkcyjnego z KSeF. Nie są oznaczane jako oryginalne pliki XML.</div>
+      <div class="library-toolbar">
+        <input id="librarySearch" class="library-search" type="search" placeholder="Szukaj: korekta, EUR, MPP, WDT, NIP…">
+        <select id="libraryGroupFilter" class="library-select"><option value="">Wszystkie grupy</option></select>
+      </div>
+      <div id="testLibraryGrid" class="test-library-grid"></div>
+    </section>
+
+    <section id="taxNewsView" class="view">
+      <header class="topbar simple news-topbar">
+        <div>
+          <span class="eyebrow">Codzienny przegląd podatkowo-księgowy</span>
+          <h1>Gazeta księgowego</h1>
+          <p>Najnowsze informacje z wybranych serwisów podatkowych i księgowych w jednym miejscu. Pokazujemy tytuł, krótki opis i link — pełny artykuł zawsze otwiera się w serwisie źródłowym.</p>
+        </div>
+        <div class="topbar-actions"><button id="newsMarkReadBtn" class="btn ghost">Oznacz jako przeczytane</button><button id="newsRefreshBtn" class="btn primary">Odśwież wiadomości</button></div>
+      </header>
+
+      <div id="newsChangedBox" class="news-changed-box hidden"></div>
+      <div class="news-summary-strip">
+        <div class="news-summary-main"><strong id="newsFreshnessTitle">Ładowanie wiadomości…</strong><span id="newsFreshnessText">Pobieram najnowsze materiały z internetu.</span></div>
+        <div class="news-mini-stats"><div><b id="newsTodayCount">0</b><span>dzisiaj</span></div><div><b id="newsWeekCount">0</b><span>7 dni</span></div><div><b id="newsTotalCount">0</b><span>łącznie</span></div></div>
+      </div>
+
+      <div class="news-toolbar">
+        <input id="newsSearch" class="library-search" type="search" placeholder="Szukaj: KSeF, VAT, CIT, sprawozdanie…">
+        <select id="newsTopicFilter" class="library-select"><option value="">Wszystkie tematy</option></select>
+        <select id="newsSourceFilter" class="library-select"><option value="">Wszystkie źródła</option></select>
+        <select id="newsAgeFilter" class="library-select"><option value="">Wszystkie daty</option><option value="0">Dzisiaj</option><option value="3">Ostatnie 3 dni</option><option value="7">Ostatnie 7 dni</option></select>
+        <label class="news-official-only"><input id="newsOfficialOnly" type="checkbox"> tylko urzędowe</label>
+      </div>
+
+      <div class="news-columns-head"><span>Data</span><span>Najnowsze informacje</span><span>Źródło</span></div>
+      <div id="taxNewsList" class="tax-news-list"><div class="news-loading">Pobieram najnowsze informacje…</div></div>
+      <div class="news-disclaimer">Agregator nie kopiuje pełnych treści artykułów. Wyświetla wyłącznie nagłówek, krótki opis i odsyłacz do oryginalnego źródła. Przy zmianach podatkowych pierwszeństwo mają komunikaty i akty prawne źródeł urzędowych.</div>
+      <details id="newsSourcesDetails" class="news-sources-details"><summary>Stan źródeł</summary><div id="newsSourcesStatus" class="news-sources-status"></div></details>
+    </section>
+
+    <section id="toolboxView" class="view">
+      <header class="topbar simple toolbox-topbar">
+        <div>
+          <span class="eyebrow">Codzienne narzędzia księgowego</span>
+          <h1>Toolbox księgowego</h1>
+          <p>Rejestry, kalkulatory, KSeF i checklisty w jednym miejscu. Narzędzia nie wymagają wczytania faktury do głównego Checkera.</p>
+        </div>
+      </header>
+
+      <div id="toolboxHome">
+        <div class="toolbox-section-title"><h2>Kontrahenci i płatności</h2><p>Szybka weryfikacja bez otwierania faktury.</p></div>
+        <div class="toolbox-grid">
+          <button class="tool-card" data-tool="contractor"><span class="tool-icon">NIP</span><span><b>Sprawdź kontrahenta</b><small>Biała Lista + VAT + VIES + dane rejestrowe</small></span></button>
+          <button class="tool-card" data-tool="bank"><span class="tool-icon">IBAN</span><span><b>Sprawdź rachunek</b><small>NIP + rachunek na Białej Liście MF</small></span></button>
+          <button class="tool-card" data-tool="vies"><span class="tool-icon">EU</span><span><b>Sprawdź VAT UE (VIES)</b><small>Aktywność numeru VAT UE i dane z VIES</small></span></button>
+          <button class="tool-card" data-tool="nbp"><span class="tool-icon">FX</span><span><b>Kurs NBP do faktury</b><small>Średni kurs sprzed właściwej daty</small></span></button>
+          <button class="tool-card" data-tool="deadline"><span class="tool-icon">15</span><span><b>Termin wystawienia faktury</b><small>Zasada ogólna i najczęstsze terminy szczególne</small></span></button>
+        </div>
+
+        <div class="toolbox-section-title"><h2>VAT i rozliczenia</h2><p>Kalkulatory do codziennego księgowania.</p></div>
+        <div class="toolbox-grid">
+          <button class="tool-card" data-tool="vat"><span class="tool-icon">VAT</span><span><b>Netto ↔ VAT ↔ brutto</b><small>Wiele pozycji i stawek, automatyczne podsumowanie</small></span></button>
+          <button class="tool-card" data-tool="mpp"><span class="tool-icon">MPP</span><span><b>Kalkulator MPP</b><small>Próg 15 000 zł + załącznik 15 + status podatników</small></span></button>
+          <button class="tool-card" data-tool="interest"><span class="tool-icon">%</span><span><b>Kalkulator odsetek</b><small>Stawki automatycznie z oficjalnych źródeł</small></span></button>
+          <button class="tool-card" data-tool="lease"><span class="tool-icon">AUTO</span><span><b>Leasing — proporcja KUP</b><small>Limity 2026: 100 / 150 / 225 tys. zł</small></span></button>
+          <button class="tool-card" data-tool="insurance"><span class="tool-icon">AC</span><span><b>Polisa — proporcja KUP</b><small>AC/GAP a limit 150 tys. zł; OC/NNW osobno</small></span></button>
+          <button class="tool-card" data-tool="fxdiff"><span class="tool-icon">±FX</span><span><b>Różnice kursowe</b><small>Porównanie wartości faktury i zapłaty</small></span></button>
+          <button class="tool-card" data-tool="calendar"><span class="tool-icon">CAL</span><span><b>Kalendarz terminów</b><small>Typowe terminy VAT, JPK, ZUS, PIT/CIT</small></span></button>
+        </div>
+
+        <div class="toolbox-section-title"><h2>KSeF i dokumenty</h2><p>Narzędzia do XML FA(3) i pracy z korektami.</p></div>
+        <div class="toolbox-grid">
+          <button class="tool-card" data-tool="compare"><span class="tool-icon">ΔXML</span><span><b>Porównaj dwie faktury XML</b><small>Dodane, usunięte i zmienione wartości</small></span></button>
+          <button class="tool-card" data-tool="viewer"><span class="tool-icon">XML</span><span><b>KSeF XML → czytelna faktura</b><small>Szybki podgląd bez pełnego Checkera</small></span></button>
+          <button class="tool-card" data-tool="generator"><span class="tool-icon">FA3</span><span><b>Generator testowej FA(3)</b><small>Tworzenie lokalnego fixture XML do testów</small></span></button>
+          <button class="tool-card" data-tool="closing"><span class="tool-icon">✓</span><span><b>Asystent zamknięcia miesiąca</b><small>Checklisty pełna księgowość / KPiR / VAT</small></span></button>
+        </div>
+      </div>
+
+      <div id="toolboxWorkbench" class="toolbox-workbench hidden">
+        <button id="toolboxBack" class="btn ghost toolbox-back">← Wszystkie narzędzia</button>
+
+        <section class="tool-panel" data-tool-panel="contractor">
+          <div class="tool-panel-head"><span class="eyebrow">Rejestry</span><h2>Sprawdź kontrahenta</h2><p>Sprawdza polski NIP w Wykazie podatników VAT. Opcjonalnie możesz zweryfikować numer VAT UE w VIES.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka" target="_blank" rel="noopener">Wykaz podatników VAT (Biała Lista) ↗</a> · <a href="https://wl-api.mf.gov.pl/" target="_blank" rel="noopener">API MF — Biała Lista ↗</a> · <a href="https://ec.europa.eu/taxation_customs/vies/" target="_blank" rel="noopener">VIES ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>NIP<input id="tbContractorNip" inputmode="numeric" placeholder="np. 5260250274"></label><label>Data sprawdzenia<input id="tbContractorDate" type="date"></label><label>VAT UE (opcjonalnie)<div class="inline-fields"><input id="tbContractorCountry" maxlength="2" placeholder="PL"><input id="tbContractorVat" placeholder="numer VAT UE"></div></label></div>
+          <button id="tbContractorRun" class="btn primary">Sprawdź kontrahenta</button><div id="tbContractorResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="bank">
+          <div class="tool-panel-head"><span class="eyebrow">Biała Lista MF</span><h2>Sprawdź rachunek bankowy</h2><p>Weryfikuje parę NIP + rachunek na wybrany dzień.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/wykaz-podatnikow-vat-wyszukiwarka" target="_blank" rel="noopener">Wyszukiwarka Białej Listy ↗</a> · <a href="https://wl-api.mf.gov.pl/" target="_blank" rel="noopener">API MF — sprawdzenie rachunku ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>NIP<input id="tbBankNip" inputmode="numeric" placeholder="10 cyfr"></label><label>Rachunek / IBAN<input id="tbBankAccount" placeholder="PL… lub 26 cyfr"></label><label>Data sprawdzenia<input id="tbBankDate" type="date"></label></div>
+          <button id="tbBankRun" class="btn primary">Sprawdź rachunek</button><div id="tbBankResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="vies">
+          <div class="tool-panel-head"><span class="eyebrow">VIES</span><h2>Sprawdź numer VAT UE</h2><p>Weryfikacja numeru w unijnym systemie VIES. Wynik pokazuje status oraz nazwę/adres, jeśli państwo członkowskie je zwróci.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://ec.europa.eu/taxation_customs/vies/" target="_blank" rel="noopener">Wyszukiwarka VIES ↗</a> · <a href="https://ec.europa.eu/taxation_customs/vies/services/checkVatService" target="_blank" rel="noopener">Usługa checkVatService ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Kod kraju<input id="tbViesCountry" maxlength="2" value="PL" placeholder="PL"></label><label>Numer VAT<input id="tbViesVat" placeholder="bez prefiksu kraju"></label></div>
+          <button id="tbViesRun" class="btn primary">Sprawdź w VIES</button><div id="tbViesResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="nbp">
+          <div class="tool-panel-head"><span class="eyebrow">NBP</span><h2>Kurs waluty do faktury</h2><p>Pobiera średni kurs NBP z ostatniego dnia roboczego poprzedzającego wskazaną datę referencyjną.</p></div>
+          <div class="tool-form-grid cols-3"><label>Waluta<select id="tbNbpCurrency"><option>EUR</option><option>USD</option><option>GBP</option><option>CHF</option><option>CZK</option><option>SEK</option><option>NOK</option><option>DKK</option><option>JPY</option><option value="OTHER">Inna…</option></select></label><label id="tbNbpOtherWrap" class="hidden">Kod waluty<input id="tbNbpOther" maxlength="3" placeholder="CAD"></label><label>Data referencyjna<input id="tbNbpDate" type="date"></label><label>Kwota w walucie<input id="tbNbpAmount" type="number" step="0.01" value="1000"></label></div>
+          <button id="tbNbpRun" class="btn primary">Pobierz kurs NBP</button><div id="tbNbpResult" class="tool-result"></div>
+          <div class="official-check"><b>Ręczna weryfikacja:</b> <a href="https://nbp.pl/statystyka-i-sprawozdawczosc/kursy/archiwum-kursow-srednich-tabela-a/" target="_blank" rel="noopener">Archiwum kursów średnich NBP — tabela A ↗</a></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="deadline">
+          <div class="tool-panel-head"><span class="eyebrow">VAT</span><h2>Termin wystawienia faktury</h2><p>Oblicza termin dla najczęstszych przypadków. Przy zdarzeniach nietypowych wynik wymaga dodatkowej analizy przepisów.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://ksef.podatki.gov.pl/ksef-news/wystawianie-i-otrzymywanie-faktur/" target="_blank" rel="noopener">MF / KSeF — wystawianie i otrzymywanie faktur ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Rodzaj zdarzenia<select id="tbDeadlineType"><option value="general">Zasada ogólna — dostawa/usługa</option><option value="advance">Otrzymanie zaliczki</option><option value="construction">Usługi budowlane / budowlano-montażowe</option><option value="books">Dostawa drukowanych książek / prasy</option><option value="printing">Drukowanie książek / prasy</option><option value="paymentDue">Media, najem, leasing, telekomunikacja — termin płatności</option></select></label><label>Data zdarzenia<input id="tbDeadlineEventDate" type="date"></label><label id="tbDeadlinePaymentWrap" class="hidden">Termin płatności<input id="tbDeadlinePaymentDate" type="date"></label><label>Data wystawienia (opcjonalnie)<input id="tbDeadlineIssueDate" type="date"></label></div>
+          <button id="tbDeadlineRun" class="btn primary">Oblicz termin</button><div id="tbDeadlineResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="vat">
+          <div class="tool-panel-head"><span class="eyebrow">Kalkulator</span><h2>Netto ↔ VAT ↔ brutto</h2><p>Dodawaj dowolną liczbę pozycji i mieszaj stawki VAT.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/vat/abc-vat/stawki-vat/" target="_blank" rel="noopener">podatki.gov.pl — stawki VAT ↗</a></div>
+          <div id="tbVatRows" class="vat-calc-rows"></div><button id="tbVatAdd" class="btn ghost">+ Dodaj pozycję</button><div id="tbVatSummary" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="mpp">
+          <div class="tool-panel-head"><span class="eyebrow">VAT / płatność</span><h2>Kalkulator MPP</h2><p>Ocena obowiązkowego mechanizmu podzielonej płatności na podstawie podstawowych przesłanek.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/podatki-firmowe/vat/poradniki-i-informatory/mechanizm-podzielonej-platnosci-mpp" target="_blank" rel="noopener">MF — mechanizm podzielonej płatności ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Wartość brutto faktury<input id="tbMppGross" type="number" step="0.01" placeholder="0,00"></label><label>Waluta<select id="tbMppCurrency"><option>PLN</option><option>EUR</option><option>USD</option><option>GBP</option><option>CHF</option></select></label><label>Pozycja z załącznika 15?<select id="tbMppSensitive"><option value="yes">Tak</option><option value="no">Nie</option><option value="unknown">Nie wiem</option></select></label><label>Sprzedawca podatnik VAT?<select id="tbMppSellerVat"><option value="yes">Tak</option><option value="no">Nie</option><option value="unknown">Nie wiem</option></select></label><label>Nabywca podatnik VAT?<select id="tbMppBuyerVat"><option value="yes">Tak</option><option value="no">Nie</option><option value="unknown">Nie wiem</option></select></label><label>Przelicznik do PLN (jeśli waluta ≠ PLN)<input id="tbMppRate" type="number" step="0.0001" value="1"></label></div>
+          <button id="tbMppRun" class="btn primary">Sprawdź MPP</button><div id="tbMppResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="interest">
+          <div class="tool-panel-head"><span class="eyebrow">Odsetki</span><h2>Kalkulator odsetek</h2><p>Nie wpisujesz stawki ręcznie. Lokalny serwer dobiera właściwą stawkę dla każdego dnia okresu na podstawie oficjalnych publikacji i automatycznie dzieli okres, gdy stawka się zmienia.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.zus.pl/en/baza-wiedzy/skladki-wskazniki-odsetki/odsetki/wysokosc-stawek-odsetek-podatkowych-za-zwloke-od-nieterminowo-regulowanych-skladek-na-ubezpieczenia-spoleczne" target="_blank" rel="noopener">ZUS — stawki odsetek podatkowych ↗</a> · <a href="https://eli.gov.pl/eli/MP/2026/642/ogl" target="_blank" rel="noopener">ELI — odsetki w transakcjach handlowych ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Rodzaj<select id="tbInterestType"><option value="tax">Zaległość podatkowa — podstawowa</option><option value="taxReduced">Zaległość podatkowa — obniżona</option><option value="taxIncreased">Zaległość podatkowa — podwyższona</option><option value="trade">Transakcja handlowa — standardowa</option><option value="tradeMedical">Transakcja handlowa — podmiot publiczny leczniczy</option></select></label><label>Kwota<input id="tbInterestAmount" type="number" step="0.01" value="10000"></label><label>Termin płatności<input id="tbInterestDue" type="date"></label><label>Data zapłaty / obliczenia<input id="tbInterestPaid" type="date"></label></div>
+          <div class="official-check"><b>Stawka:</b> dobierana automatycznie. Dla podatkowych aplikacja korzysta z oficjalnej tabeli ZUS / obwieszczeń MF, a dla transakcji handlowych z obwieszczeń w ELI (Monitor Polski).</div>
+          <button id="tbInterestRun" class="btn primary">Pobierz stawki i oblicz odsetki</button><div id="tbInterestResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="lease">
+          <div class="tool-panel-head"><span class="eyebrow">Samochód / KUP 2026</span><h2>Leasing samochodu — proporcja podatkowa</h2><p>Wylicza proporcję limitu kosztów dla części raty stanowiącej spłatę wartości samochodu. Część odsetkowa jest pokazana osobno, ponieważ limit wartości samochodu jej nie obejmuje.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/media/rr5pgg25/podatki-2026-przewodnik-dla-inwestorow.pdf" target="_blank" rel="noopener">MF — limity samochodów od 2026 r. ↗</a> · <a href="https://eureka.mf.gov.pl/informacje/podglad/677102" target="_blank" rel="noopener">KIS — nowe limity leasingu ↗</a> · <a href="https://eureka.mf.gov.pl/informacje/podglad/572486" target="_blank" rel="noopener">KIS — część kapitałowa ↗</a></div>
+          <div class="tool-form-grid cols-3">
+            <label>Rodzaj samochodu<select id="tbLeaseCarType"><option value="high">Spalinowy — CO₂ ≥ 50 g/km</option><option value="low">Spalinowy / hybrydowy — CO₂ &lt; 50 g/km</option><option value="electric">Elektryczny / wodorowy</option></select></label>
+            <label>Wartość samochodu netto z umowy<input id="tbLeaseCarNet" type="number" step="0.01" value="180000"></label>
+            <label>Stawka VAT<select id="tbLeaseVatRate"><option value="23">23%</option><option value="8">8%</option><option value="0">0%</option></select></label>
+            <label>Odliczenie VAT<select id="tbLeaseVatDeduction"><option value="50">50% VAT</option><option value="100">100% VAT</option><option value="0">0% VAT / podatnik zwolniony</option></select></label>
+            <label>Część kapitałowa raty netto<input id="tbLeaseCapitalNet" type="number" step="0.01" value="3000"></label>
+            <label>Część odsetkowa raty netto<input id="tbLeaseInterestNet" type="number" step="0.01" value="500"></label>
+          </div>
+          <button id="tbLeaseRun" class="btn primary">Oblicz proporcję leasingu</button><div id="tbLeaseResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="insurance">
+          <div class="tool-panel-head"><span class="eyebrow">Samochód / KUP</span><h2>Polisa samochodowa — proporcja podatkowa</h2><p>Dla składek zależnych od wartości samochodu (np. AC/GAP) stosuje proporcję 150 000 zł do wartości przyjętej dla celów ubezpieczenia. Dla OC/NNW ten konkretny limit wartości samochodu nie ma zastosowania.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://eureka.mf.gov.pl/informacje/podglad/679126" target="_blank" rel="noopener">KIS — limit 150 000 zł dla AC/GAP ↗</a> · <a href="https://eureka.mf.gov.pl/informacje/podglad/389055" target="_blank" rel="noopener">KIS — AC vs OC ↗</a></div>
+          <div class="tool-form-grid cols-3">
+            <label>Rodzaj polisy<select id="tbInsType"><option value="value">AC / GAP — składka zależna od wartości auta</option><option value="other">OC / NNW — składka niezależna od wartości auta</option></select></label>
+            <label>Składka / koszt polisy<input id="tbInsPremium" type="number" step="0.01" value="6000"></label>
+            <label id="tbInsValueWrap">Wartość auta do ubezpieczenia<input id="tbInsCarValue" type="number" step="0.01" value="220000"></label>
+          </div>
+          <button id="tbInsRun" class="btn primary">Oblicz koszt podatkowy polisy</button><div id="tbInsResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="fxdiff">
+          <div class="tool-panel-head"><span class="eyebrow">Księgowość</span><h2>Kalkulator różnic kursowych</h2><p>Proste porównanie wartości PLN faktury i płatności. Znak wyniku jest pokazany osobno dla należności i zobowiązania.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://api.nbp.pl/" target="_blank" rel="noopener">API NBP ↗</a> · <a href="https://nbp.pl/statystyka-i-sprawozdawczosc/kursy/archiwum-kursow-srednich-tabela-a/" target="_blank" rel="noopener">Archiwum kursów NBP ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Typ<select id="tbFxType"><option value="receivable">Należność (sprzedaż)</option><option value="payable">Zobowiązanie (zakup)</option></select></label><label>Kwota w walucie<input id="tbFxAmount" type="number" step="0.01" value="1000"></label><label>Kurs faktury<input id="tbFxInvoiceRate" type="number" step="0.0001" value="4.3000"></label><label>Kurs zapłaty<input id="tbFxPaymentRate" type="number" step="0.0001" value="4.3500"></label><label>Waluta<input id="tbFxCurrency" value="EUR" maxlength="3"></label></div>
+          <button id="tbFxRun" class="btn primary">Oblicz różnicę</button><div id="tbFxResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="calendar">
+          <div class="tool-panel-head"><span class="eyebrow">Organizacja</span><h2>Kalendarz typowych terminów księgowych</h2><p>Lista najczęściej spotykanych terminów cyklicznych. Nie zastępuje kalendarza podatnika dla szczególnych przypadków.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://www.podatki.gov.pl/" target="_blank" rel="noopener">podatki.gov.pl ↗</a> · <a href="https://www.zus.pl/firmy/rozliczenia-z-zus" target="_blank" rel="noopener">ZUS — rozliczenia z ZUS ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Miesiąc<select id="tbCalendarMonth"></select></label><label>Rok<input id="tbCalendarYear" type="number" min="2024" max="2035"></label></div>
+          <button id="tbCalendarRun" class="btn primary">Pokaż terminy</button><div id="tbCalendarResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="compare">
+          <div class="tool-panel-head"><span class="eyebrow">KSeF</span><h2>Porównaj dwie faktury XML</h2><p>Wczytaj fakturę pierwotną i korektę. Wynik pokazuje najważniejsze pola i wiersze, które się zmieniły.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/faktura-ustrukturyzowana-i-struktura-logiczna-fa/" target="_blank" rel="noopener">MF — struktura logiczna FA ↗</a> · <a href="https://ksef.podatki.gov.pl/pliki-do-pobrania-ksef-20/" target="_blank" rel="noopener">MF — pliki do pobrania KSeF ↗</a></div>
+          <div class="compare-upload-grid"><label class="mini-upload">Faktura A<input id="tbCompareA" type="file" accept=".xml,text/xml"></label><label class="mini-upload">Faktura B / korekta<input id="tbCompareB" type="file" accept=".xml,text/xml"></label></div>
+          <button id="tbCompareRun" class="btn primary">Porównaj XML</button><div id="tbCompareResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="viewer">
+          <div class="tool-panel-head"><span class="eyebrow">KSeF</span><h2>KSeF XML → czytelna faktura</h2><p>Szybki podgląd podstawowych danych i pozycji bez uruchamiania pełnej diagnostyki.</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/faktura-ustrukturyzowana-i-struktura-logiczna-fa/" target="_blank" rel="noopener">MF — struktura logiczna FA ↗</a> · <a href="https://ksef.podatki.gov.pl/pliki-do-pobrania-ksef-20/" target="_blank" rel="noopener">MF — przykładowe pliki FA(3) ↗</a></div>
+          <label class="mini-upload wide">Wybierz XML FA(3)<input id="tbViewerFile" type="file" accept=".xml,text/xml"></label><div id="tbViewerResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="generator">
+          <div class="tool-panel-head"><span class="eyebrow">KSeF / testy</span><h2>Generator testowej faktury FA(3)</h2><p>Tworzy lokalny fixture XML do testów projektu. To generator testowy — przed użyciem produkcyjnym plik trzeba zwalidować względem aktualnego XSD FA(3).</p></div>
+          <div class="official-check"><b>Źródła:</b> <a href="https://ksef.podatki.gov.pl/pliki-do-pobrania-ksef-20/" target="_blank" rel="noopener">MF — przykładowe pliki i schemy ↗</a> · <a href="https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/faktura-ustrukturyzowana-i-struktura-logiczna-fa/" target="_blank" rel="noopener">MF — opis struktury FA ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Rodzaj<select id="tbGenType"><option value="VAT">VAT</option><option value="KOR">KOR</option><option value="ZAL">ZAL</option><option value="ROZ">ROZ</option></select></label><label>Numer faktury<input id="tbGenNumber" value="TEST/FA3/001"></label><label>Data<input id="tbGenDate" type="date"></label><label>NIP sprzedawcy<input id="tbGenSellerNip" value="1111111111"></label><label>Nazwa sprzedawcy<input id="tbGenSellerName" value="TEST SELLER Sp. z o.o."></label><label>NIP nabywcy<input id="tbGenBuyerNip" value="2222222222"></label><label>Nazwa nabywcy<input id="tbGenBuyerName" value="TEST BUYER Sp. z o.o."></label><label>Waluta<input id="tbGenCurrency" value="PLN" maxlength="3"></label><label>Netto<input id="tbGenNet" type="number" step="0.01" value="100"></label><label>Stawka VAT<select id="tbGenVatRate"><option value="23">23%</option><option value="8">8%</option><option value="5">5%</option><option value="0">0%</option><option value="zw">zw.</option></select></label><label><span>Opcje</span><span class="checkline"><input id="tbGenMpp" type="checkbox"> MPP</span><span class="checkline"><input id="tbGenPodmiot3" type="checkbox"> Podmiot3</span></label></div>
+          <div class="tool-action-row"><button id="tbGenRun" class="btn primary">Generuj XML</button><button id="tbGenDownload" class="btn ghost" disabled>Pobierz XML</button></div><div id="tbGenResult" class="tool-result"></div>
+        </section>
+
+        <section class="tool-panel" data-tool-panel="closing">
+          <div class="tool-panel-head"><span class="eyebrow">Organizacja</span><h2>Asystent zamknięcia miesiąca</h2><p>Checklisty zapisują się lokalnie w tej przeglądarce.</p></div>
+          <div class="official-check"><b>Źródła pomocnicze:</b> <a href="https://www.podatki.gov.pl/" target="_blank" rel="noopener">podatki.gov.pl ↗</a> · <a href="https://www.zus.pl/" target="_blank" rel="noopener">ZUS ↗</a> · <a href="https://ksef.podatki.gov.pl/" target="_blank" rel="noopener">KSeF ↗</a></div>
+          <div class="tool-form-grid cols-3"><label>Profil<select id="tbCloseProfile"><option value="full">Pełna księgowość</option><option value="kpir">KPiR</option><option value="vat">VAT / JPK</option></select></label><label>Miesiąc<select id="tbCloseMonth"></select></label><label>Rok<input id="tbCloseYear" type="number" min="2024" max="2035"></label></div>
+          <div id="tbCloseProgress" class="close-progress"></div><div id="tbCloseList" class="close-list"></div><button id="tbCloseReset" class="btn ghost">Wyczyść zaznaczenia</button>
+        </section>
+      </div>
+    </section>
+
+
+
+    <section id="taxSimulatorView" class="view">
+      <header class="topbar simple taxsim-topbar">
+        <div><span class="eyebrow">Symulacja JDG · rok 2026</span><h1>Kalkulator formy opodatkowania</h1><p>Porównanie skali podatkowej, podatku liniowego i ryczałtu wraz ze składką zdrowotną, odliczeniami i czytelnym raportem dla klienta.</p></div>
+        <div class="taxsim-actions"><button id="taxSimExample" class="btn ghost">Wczytaj przykład</button><button id="taxSimExport" class="btn primary" disabled>Raport PDF dla klienta</button></div>
+      </header>
+      <div class="taxsim-legal-banner"><b>Stan prawny / parametry: 25.09.2026</b><span>Symulator dotyczy osoby fizycznej prowadzącej pozarolniczą działalność gospodarczą w Polsce. Wynik zależy od prawidłowej kwalifikacji przychodów, PKWiU i prawa do ulg. Przy nietypowym stanie faktycznym wymaga weryfikacji.</span></div>
+
+      <div class="taxsim-layout">
+        <aside class="taxsim-inputs">
+          <section class="taxsim-box"><h2>Dane klienta</h2><label>Nazwa / klient<input id="taxClientName" placeholder="np. Jan Kowalski / ABC Usługi"></label><div class="taxsim-grid2"><label>Przychód roczny netto<input id="taxRevenue" type="number" step="100" value="240000"></label><label>Koszty podatkowe (bez ZUS)<input id="taxCosts" type="number" step="100" value="60000"></label><label>Składki społeczne zapłacone<input id="taxSocial" type="number" step="10" value="18000"></label><label>Inne dochody opodatkowane skalą<input id="taxOtherScale" type="number" step="100" value="0"></label><label>Przychód 2025 (limit ryczałtu)<input id="taxPrevRevenue" type="number" step="100" value="240000"></label><label>Miesiące składki zdrowotnej<select id="taxMonths"><option>12</option><option>11</option><option>10</option><option>9</option><option>8</option><option>7</option><option>6</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></label></div></section>
+
+          <section class="taxsim-box"><h2>Skala podatkowa</h2><label class="checkline"><input id="taxJoint" type="checkbox"> Uwzględnij wspólne rozliczenie z małżonkiem (potwierdzam spełnienie warunków)</label><div class="taxsim-grid2"><label>Dochód małżonka opodatkowany skalą<input id="taxSpouseIncome" type="number" step="100" value="0"></label><label>Ulgi od podatku (np. prorodzinna) <input id="taxScaleCredits" type="number" step="10" value="0"></label><label>Inne odliczenia od dochodu<input id="taxScaleDeductions" type="number" step="10" value="0"></label><label>Zdrowotna — ręczna korekta (opc.)<input id="taxScaleHealthOverride" type="number" step="0.01" placeholder="auto"></label></div></section>
+
+          <section class="taxsim-box"><h2>Podatek liniowy</h2><div class="taxsim-grid2"><label>Inne odliczenia od dochodu<input id="taxLinearDeductions" type="number" step="10" value="0"></label><label>Zdrowotna — ręczna korekta (opc.)<input id="taxLinearHealthOverride" type="number" step="0.01" placeholder="auto"></label></div><label class="checkline"><input id="taxEmployerConflict" type="checkbox"> Usługi dla obecnego/byłego pracodawcy odpowiadają czynnościom z etatu w tym roku</label></section>
+
+          <section class="taxsim-box"><div class="taxsim-box-title"><h2>Ryczałt</h2><button id="taxAddRycRow" class="mini-btn" type="button">+ stawka</button></div><p class="taxsim-help">Stawkę ustala się według faktycznie wykonywanej działalności / PKWiU. Możesz podzielić przychód na kilka stawek.</p><div id="taxRycRows" class="tax-ryc-rows"></div><div class="taxsim-grid2"><label>Zdrowotna — ręczna korekta (opc.)<input id="taxRycHealthOverride" type="number" step="0.01" placeholder="auto"></label><label class="checkline taxsim-check"><input id="taxRycEligible" type="checkbox" checked> Działalność nie jest wyłączona z ryczałtu</label></div></section>
+
+          <button id="taxSimRun" class="btn primary taxsim-run">Porównaj formy opodatkowania</button>
+        </aside>
+
+        <div class="taxsim-results">
+          <div id="taxSimEmpty" class="taxsim-empty"><b>Uzupełnij założenia i kliknij „Porównaj”.</b><span>Kalkulator pokaże PIT, zdrowotną, łączne obciążenie, kwotę pozostającą po podatkach i analizę progów.</span></div>
+          <div id="taxSimContent" class="hidden">
+            <div class="taxsim-summary-head"><div><span class="eyebrow">Porównanie roczne</span><h2 id="taxSimHeadline">Wyniki symulacji</h2><p id="taxSimLead"></p></div><div id="taxSimBest" class="taxsim-best"></div></div>
+            <div id="taxSimCards" class="taxsim-cards"></div>
+            <section class="taxsim-section"><div class="taxsim-section-head"><div><h2>Porównanie obciążeń</h2><p>Podatek dochodowy i składka zdrowotna w każdej formie.</p></div></div><canvas id="taxBurdenChart" class="taxsim-chart" width="900" height="330"></canvas></section>
+            <section class="taxsim-section"><div class="taxsim-section-head"><div><h2>Wrażliwość na poziom przychodu</h2><p>Jak zmienia się PIT + zdrowotna przy zachowaniu obecnej relacji kosztów do przychodu.</p></div></div><canvas id="taxSensitivityChart" class="taxsim-chart" width="900" height="340"></canvas></section>
+            <section class="taxsim-section"><h2>Szczegółowe wyliczenie</h2><div id="taxSimDetails" class="taxsim-details"></div></section>
+            <section class="taxsim-section"><h2>Warunki i ryzyka do sprawdzenia</h2><div id="taxSimWarnings" class="taxsim-warnings"></div></section>
+          </div>
+        </div>
+      </div>
+
+      <section class="taxsim-sources">
+        <div class="taxsim-section-head"><div><span class="eyebrow">Podstawa prawna</span><h2>Źródła i przepisy użyte w kalkulatorze</h2><p>Każde źródło prowadzi do serwisu urzędowego lub tekstu aktu prawnego.</p></div></div>
+        <div class="taxsim-source-grid">
+          <a target="_blank" rel="noopener" href="https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-wedlug-skali-podatkowej"><b>Skala podatkowa — podatki.gov.pl</b><span>12% do 120 000 zł, 32% od nadwyżki; kwota zmniejszająca 3 600 zł.</span></a>
+          <a target="_blank" rel="noopener" href="https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-podatkiem-liniowym"><b>Podatek liniowy — podatki.gov.pl</b><span>19% dochodu; warunki wyboru i ograniczenia.</span></a>
+          <a target="_blank" rel="noopener" href="https://podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-ryczaltem-od-przychodow-ewidencjonowanych"><b>Ryczałt — podatki.gov.pl</b><span>Opodatkowanie przychodu i warunki stosowania.</span></a>
+          <a target="_blank" rel="noopener" href="https://www.podatki.gov.pl/podatki-firmowe/pit/stawki-i-limity"><b>Stawki i limity PIT 2026</b><span>Stawki ryczałtu oraz limit 8 517 200 zł uprawniający do ryczałtu w 2026 r.</span></a>
+          <a target="_blank" rel="noopener" href="https://www.zus.pl/en/-/informacja-w-sprawie-podstawy-wymiaru-sk%C5%82adki-oraz-kwoty-sk%C5%82adki-na-ubezpieczenie-zdrowotne-w-2026-r."><b>ZUS — składka zdrowotna 2026</b><span>Skala 9%, liniowy 4,9%, minima oraz progi ryczałtu 60 tys. / 300 tys.</span></a>
+          <a target="_blank" rel="noopener" href="https://www.podatki.gov.pl/ulgi-i-odliczenia/odliczenie-skladek-na-ubezpieczenie-zdrowotne-pit"><b>Odliczenie zdrowotnej</b><span>Liniowy: limit 14 100 zł w 2026 r.; ryczałt: 50% zapłaconej składki od przychodu.</span></a>
+          <a target="_blank" rel="noopener" href="https://eli.gov.pl/eli/DU/1991/350/ogl"><b>Ustawa o PIT</b><span>W szczególności art. 27 (skala) i art. 30c (podatek liniowy).</span></a>
+          <a target="_blank" rel="noopener" href="https://eli.gov.pl/eli/DU/2024/776/ogl"><b>Ustawa o ryczałcie — tekst jednolity</b><span>W szczególności art. 6, art. 8 i art. 12 — zakres, wyłączenia i stawki.</span></a>
+          <a target="_blank" rel="noopener" href="https://eli.gov.pl/eli/DU/2025/1461/ogl"><b>Ustawa zdrowotna — tekst jednolity</b><span>Art. 79 i 81 — stawki i podstawy składki zdrowotnej.</span></a>
+          <a target="_blank" rel="noopener" href="https://eureka.mf.gov.pl/"><b>EUREKA — interpretacje KIS</b><span>Do weryfikacji kwalifikacji konkretnych usług, w szczególności właściwej stawki ryczałtu i indywidualnych stanów faktycznych.</span></a>
+        </div>
+      </section>
+    </section>
+
+
+
+    <section id="dashboardView" class="view visible">
+      <header class="topbar simple office-topbar">
+        <div><span class="eyebrow">Pulpit księgowego</span><h1>Centrum pracy</h1><p>Szybki obraz klientów, kontroli faktur, zdrowotnej, źródeł prawnych i pozycji wymagających uwagi.</p></div>
+        <div class="topbar-actions"><button id="dashRefresh" class="btn ghost">Odśwież</button><button id="dashNewClient" class="btn primary">+ Klient</button></div>
+      </header>
+      <div id="dashboardKpis" class="office-kpi-grid"></div>
+      <div class="office-two-col">
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Do uwagi</span><h2>Najważniejsze alerty</h2></div><button class="btn ghost small" data-office-go="history">Historia</button></div><div id="dashboardAlerts" class="office-list"></div></section>
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Klienci</span><h2>Przegląd kartotek</h2></div><button class="btn ghost small" data-office-go="clients">Otwórz klientów</button></div><div id="dashboardClients" class="office-list"></div></section>
+      </div>
+      <div class="office-two-col">
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Przepisy</span><h2>Aktualność źródeł</h2></div><button class="btn ghost small" data-office-go="legal">Reguły i źródła</button></div><div id="dashboardLegal" class="office-list"></div></section>
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Skróty</span><h2>Najczęstsze działania</h2></div></div><div class="office-quick-grid"><button data-office-go="workspace">Sprawdź fakturę</button><button data-office-go="healthCalc">Zdrowotna ZUS</button><button data-office-go="taxSimulator">Forma opodatkowania</button><button data-office-go="taxNews">Gazeta księgowego</button><button data-office-go="toolbox">Toolbox</button><button data-office-go="qa">Uruchom QA</button></div></section>
+      </div>
+    </section>
+
+    <section id="clientsView" class="view">
+      <header class="topbar simple office-topbar">
+        <div><span class="eyebrow">Kartoteka klienta</span><h1>Klienci</h1><p>Jedno miejsce na dane firmy, zdrowotną, prognozę podatków, faktury, środki trwałe i raport dla klienta.</p></div>
+        <div class="topbar-actions"><button id="clientImportBtn" class="btn ghost">Import CSV/XLSX</button><a class="btn ghost" href="CLIENT_IMPORT_TEMPLATE.csv" download>Szablon CSV</a><input id="clientImportInput" type="file" accept=".csv,.xlsx,.xls" hidden><button id="backupExportBtn" class="btn ghost">Kopia danych</button><button id="backupImportBtn" class="btn ghost">Przywróć</button><input id="backupImportInput" type="file" accept=".json" hidden><button id="clientAddBtn" class="btn primary">+ Nowy klient</button></div>
+      </header>
+      <div id="clientTabs" class="office-client-tabs"></div>
+      <div id="clientEmpty" class="office-empty hidden">Brak klientów. Dodaj pierwszą kartotekę albo zaimportuj plik.</div>
+      <div id="clientWorkspace">
+        <section class="office-card client-profile-card">
+          <div class="office-card-head"><div><span class="eyebrow">Dane podstawowe</span><h2 id="clientWorkspaceTitle">Klient</h2></div><div class="topbar-actions"><button id="clientDuplicateBtn" class="btn ghost small">Duplikuj</button><button id="clientDeleteBtn" class="btn ghost small">Usuń</button><button id="clientReportBtn" class="btn primary small">Pakiet PDF dla klienta</button></div></div>
+          <div class="office-form-grid">
+            <label>Nazwa / klient<input id="clientName"></label>
+            <label class="client-nip-field">NIP<div class="client-nip-inline"><input id="clientNip" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="10 cyfr"><button id="clientRegistryFetch" class="btn ghost small" type="button">Pobierz dane</button></div></label>
+            <label>Forma opodatkowania<select id="clientTaxForm"><option value="scale">Skala podatkowa</option><option value="linear">Podatek liniowy</option><option value="ryc">Ryczałt</option></select></label><label>Stawka ryczałtu (%)<input id="clientRycRate" data-money value="8,5"></label>
+            <label>Status VAT<select id="clientVatStatus"><option value="unknown">Nieustalony</option><option value="active">Czynny VAT</option><option value="exempt">Zwolniony</option><option value="inactive">Nieaktywny / brak rejestracji</option></select></label><label>REGON<input id="clientRegon" readonly></label><label>KRS<input id="clientKrs" readonly></label><label>Rachunek<input id="clientBank"></label>
+            <label class="office-span2">Adres z rejestru<input id="clientAddress" readonly></label><label>E-mail<input id="clientEmail" type="email"></label><label>Klient zdrowotnej<select id="clientHealthLink"><option value="">— brak powiązania —</option></select></label>
+            <label>PIT wpłacony YTD<input id="clientTaxPaid" data-money placeholder="0,00"></label><label>Zdrowotna wpłacona YTD<input id="clientHealthPaid" data-money placeholder="0,00"></label><label class="office-span2">Notatki<textarea id="clientNotes" rows="2"></textarea></label>
+          </div>
+          <div id="clientRegistryState" class="client-registry-state hidden"></div>
+          <div id="clientRegistryAccounts" class="client-registry-accounts hidden"></div>
+          <div class="client-action-row"><button id="clientOpenHealth" class="btn ghost">Otwórz zdrowotną</button><button id="clientOpenTaxSim" class="btn ghost">Otwórz symulator podatkowy</button><span id="clientSaveState" class="muted"></span></div>
+        </section>
+        <div class="office-two-col">
+          <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Prognoza</span><h2>Podatki i rezerwa do końca roku</h2></div></div><div id="clientForecast"></div></section>
+          <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Kontrole faktur</span><h2>Historia klienta</h2></div><button id="clientOpenHistory" class="btn ghost small">Pełna historia</button></div><div id="clientHistory"></div></section>
+        </div>
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Środki trwałe</span><h2>Rejestr pomocniczy</h2></div><button id="assetAddBtn" class="btn primary small">+ Środek trwały</button></div><div class="office-table-wrap"><table class="office-table" id="assetTable"></table></div><div class="office-note">Wynik sprzedaży jest kalkulacją pomocniczą: cena sprzedaży minus niezamortyzowana wartość. Ostateczne skutki podatkowe zależą od formy opodatkowania i stanu faktycznego.</div></section>
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">Audyt kartoteki</span><h2>Historia zmian klienta</h2></div></div><div id="clientEvents" class="office-list"></div></section>
+        <section class="office-card"><div class="office-card-head"><div><span class="eyebrow">PDF ↔ XML KSeF</span><h2>Porównaj tę samą fakturę</h2></div></div><p class="muted">Wczytaj PDF oraz odpowiadający mu XML FA(3). Checker porówna najważniejsze dane widoczne dla klienta z danymi struktury KSeF.</p><div class="office-compare-inputs"><label>PDF<input id="comparePdfInput" type="file" accept=".pdf,application/pdf"></label><label>XML<input id="compareXmlInput" type="file" accept=".xml,text/xml,application/xml"></label><button id="comparePdfXmlBtn" class="btn primary">Porównaj</button></div><div id="comparePdfXmlResult"></div></section>
+      </div>
+    </section>
+
+    <section id="legalView" class="view">
+      <header class="topbar simple office-topbar"><div><span class="eyebrow">Wersjonowanie reguł</span><h1>Reguły i źródła</h1><p>Każda kluczowa reguła ma datę obowiązywania, źródło urzędowe i datę ostatniej weryfikacji.</p></div><button id="legalRefreshBtn" class="btn primary">Sprawdź dostępność źródeł</button></header>
+      <div id="legalSummary" class="office-kpi-grid"></div>
+      <div class="legal-toolbar"><input id="legalSearch" class="library-search" type="search" placeholder="Szukaj: KSeF, zdrowotna, MPP, leasing…"><select id="legalStatusFilter" class="library-select"><option value="">Wszystkie reguły</option><option value="current">Obowiązujące</option><option value="planned">Planowane</option></select></div>
+      <div id="legalRules" class="legal-rules"></div>
+    </section>
+
+    <section id="healthCalcView" class="view">
+      <header class="topbar simple hc-topbar">
+        <div><span class="eyebrow">ZUS · rozliczenie miesięczne i roczne · 2026</span><h1>Kalkulator składki zdrowotnej</h1><p>Roczny arkusz roboczy dla księgowego: skala, podatek liniowy i ryczałt, miesięczne podstawy, składki DRA oraz przygotowanie danych do rocznego rozliczenia.</p></div>
+        <div class="hc-actions"><span id="hcSaveState" class="muted"></span><button id="hcDuplicateClient" class="btn ghost">Duplikuj klienta</button><button id="hcDeleteClient" class="btn ghost">Usuń klienta</button><button id="hcExportExcel" class="btn ghost" disabled>Eksport Excel</button><button id="hcExportPdf" class="btn primary" disabled>Raport PDF</button></div>
+      </header>
+      <div class="hc-legal"><b>Parametry 2026 · stan prawny sprawdzony 25.09.2026</b><span>Skala: 9% dochodu. Liniowy: 4,9% dochodu, z minimalną składką 432,54 zł w roku składkowym od lutego 2026. Ryczałt: progi przychodu 60 000 / 300 000 zł. Sprzedaż ŚT/WNiP jest wyłączana z miesięcznej podstawy; dla skali/liniowego można zdecydować o jej uwzględnieniu w rozliczeniu rocznym.</span></div>
+      <div id="hcClientTabs" class="hc-client-tabs"></div>
+      <div id="hcFormIndicator" class="hc-form-indicator"></div>
+      <section class="hc-settings">
+        <label>Klient / firma<input id="hcClientName" placeholder="np. Jan Kowalski — Usługi IT"></label>
+        <label>Forma opodatkowania<select id="hcForm"><option value="scale">Skala podatkowa</option><option value="linear">Podatek liniowy</option><option value="ryc">Ryczałt od przychodów ewidencjonowanych</option></select></label>
+        <label>Rok<input id="hcYear" value="2026" readonly></label>
+        <label id="hcInputModeWrap">Tryb wprowadzania<select id="hcInputMode"><option value="revenueCosts">Przychód + koszty</option><option value="income">Dochód bezpośrednio</option></select></label>
+        <label id="hcPrevIncomeWrap">Dochód grudnia 2025<br><small>dla składki za styczeń 2026</small><input id="hcDecPrevIncome" data-money placeholder="0,00"></label>
+        <label class="checkline hc-check"><input id="hcSocialReduces" type="checkbox" checked> Składki społeczne pomniejszają dochód/przychód (nie są już w kosztach)</label>
+        <label id="hcAssetAnnualWrap" class="checkline hc-check hc-asset-annual"><input id="hcIncludeAssetsAnnual" type="checkbox"> W rozliczeniu rocznym uwzględnij sprzedaż ŚT/WNiP <small>(skala/liniowy; wymaga oświadczenia w DRA/RCA)</small></label>
+      </section>
+      <div class="hc-help"><b>Jak wprowadzać dane?</b> Wpisuj miesięczny przychód i koszty zgodnie z ewidencją, a sprzedaż środka trwałego/WNiP wykaż dodatkowo w osobnych kolumnach. Kalkulator automatycznie wyłączy przychód i koszt związany ze sprzedażą ŚT z miesięcznej podstawy zdrowotnej. Dla skali/liniowego możesz następnie dobrowolnie uwzględnić tę sprzedaż w rozliczeniu rocznym; dla ryczałtu pozostaje wyłączona. Dla skali/liniowego składka za dany miesiąc jest liczona od dochodu miesiąca poprzedniego; dlatego kalkulator dopisuje także styczeń 2027.</div>
+      <div id="hcAssetRycInfo" class="hc-asset-rule hidden"><b>Ryczałt:</b> przychód ze sprzedaży środków trwałych/WNiP jest wyłączony z przychodu do składki zdrowotnej. Koszt ŚT jest tu wyłącznie informacyjny.</div>
+      <div class="hc-asset-rule"><b>Sprzedaż środków trwałych od 2025 r.:</b> przy miesięcznej podstawie składki nie uwzględnia się przychodów i kosztów związanych ze sprzedażą ŚT/WNiP. Przy rocznym rozliczeniu skali lub liniowego przedsiębiorca może zdecydować o ich uwzględnieniu i wtedy zaznacza odpowiednie oświadczenie w ZUS DRA / RCA.</div>
+      <div class="hc-table-wrap"><table id="hcTable" class="hc-table"></table></div>
+      <div id="hcSummary" class="hc-summary"></div>
+      <div id="hcAnnualNote" class="hc-annual-note"></div>
+      <section class="hc-notes"><label>Notatki do klienta / rozliczenia<textarea id="hcNotes" rows="3" placeholder="np. działalność zawieszona w maju; składka za lipiec skorygowana w DRA..."></textarea></label></section>
+      <section class="hc-sources">
+        <div><span class="eyebrow">Źródła urzędowe</span><h2>Podstawa wyliczeń</h2></div>
+        <div class="hc-source-grid">
+          <a href="https://www.zus.pl/pl/firmy/przedsiebiorco-przeczytaj-wazne/kalkulator-skladki-zdrowotnej" target="_blank" rel="noopener"><b>ZUS — kalkulator miesięczny</b><span>Dochód miesiąca poprzedniego, minima i zasady miesięcznej podstawy.</span></a>
+          <a href="https://www.zus.pl/firmy/przedsiebiorco-przeczytaj-wazne/kalkulator-rocznej-skladki-zdrowotnej" target="_blank" rel="noopener"><b>ZUS — kalkulator roczny</b><span>Roczna podstawa, suma miesięcznych należnych składek, dopłata / zwrot.</span></a>
+          <a href="https://www.zus.pl/en/-/informacja-w-sprawie-podstawy-wymiaru-sk%C5%82adki-oraz-kwoty-sk%C5%82adki-na-ubezpieczenie-zdrowotne-w-2026-r." target="_blank" rel="noopener"><b>ZUS — parametry 2026</b><span>Ryczałt 498,35 / 830,58 / 1 495,04 zł oraz podstawy 60% / 100% / 180%.</span></a>
+          <a href="https://biznes.gov.pl/pl/portal/001052" target="_blank" rel="noopener"><b>Biznes.gov.pl — składka zdrowotna</b><span>Skala 9%, liniowy 4,9%, minimum 432,54 zł i zasady rocznego rozliczenia.</span></a>
+          <a href="https://eli.gov.pl/eli/DU/2025/1461/ogl" target="_blank" rel="noopener"><b>Ustawa zdrowotna</b><span>Ustawa z 27 sierpnia 2004 r., w szczególności art. 79 i art. 81.</span></a>
+          <a href="https://www.zus.pl/en/-/od-1-maja-2026-r.-obowi%C4%85zuj%C4%85-nowe-wzory-formularzy-zus-dra-i-zus-rca" target="_blank" rel="noopener"><b>ZUS — sprzedaż ŚT i roczne DRA/RCA</b><span>Wyłączenie sprzedaży ŚT z miesięcznej podstawy oraz możliwość jej uwzględnienia w rocznym rozliczeniu skali/liniowego; pola oświadczenia w DRA/RCA.</span></a>
+        </div>
+      </section>
+    </section>
+
+    <section id="historyView" class="view">
+      <header class="topbar simple">
+        <div><span class="eyebrow">Lokalny dziennik pracy</span><h1>Historia kontroli</h1><p>Ostatnie analizy zapisane lokalnie w tej przeglądarce. Nie przechowujemy treści XML — tylko metadane, wynik i listę wykrytych problemów.</p></div>
+        <button id="historyClearBtn" class="btn ghost">Wyczyść historię</button>
+      </header>
+      <div class="library-toolbar history-toolbar"><input id="historySearch" class="library-search" type="search" placeholder="Szukaj: numer faktury, NIP, kontrahent…"><select id="historyStatusFilter" class="library-select"><option value="">Wszystkie wyniki</option><option value="error">Z błędami</option><option value="warn">Tylko ostrzeżenia</option><option value="ok">Bez błędów</option></select></div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <section id="qaView" class="view">
+      <header class="topbar simple qa-topbar">
+        <div><span class="eyebrow">Regresja i diagnostyka</span><h1>Testy / QA</h1><p>Jednym kliknięciem sprawdzisz bibliotekę XML, parser, powiązania Toolboxa, źródła, serwer lokalny i silnik walidacji XSD.</p></div>
+        <div class="topbar-actions"><label class="qa-live-toggle"><input id="qaLiveServices" type="checkbox"> testuj także internet/API</label><button id="qaRunBtn" class="btn primary">Uruchom pełny test</button></div>
+      </header>
+      <div class="qa-summary">
+        <div class="qa-stat"><span>Testy</span><b id="qaTotal">0</b></div><div class="qa-stat ok"><span>Zaliczone</span><b id="qaPassed">0</b></div><div class="qa-stat error"><span>Błędy</span><b id="qaFailed">0</b></div><div class="qa-stat warn"><span>Ostrzeżenia</span><b id="qaWarned">0</b></div>
+      </div>
+      <div id="qaProgress" class="qa-progress hidden"><div class="progress-track"><i id="qaProgressBar" style="width:0%"></i></div><span id="qaProgressText">Przygotowuję testy…</span></div>
+      <div class="qa-actions-row"><button id="qaExportBtn" class="btn ghost" disabled>Eksportuj wynik QA</button><span id="qaLastRun" class="muted"></span></div>
+      <div id="qaGroups" class="qa-groups"><div class="qa-empty">Uruchom testy, aby zobaczyć wyniki.</div></div>
+      <div class="notice qa-note"><b>Jak czytać wynik?</b> Błąd oznacza regresję lokalną lub brak oczekiwanego elementu. Ostrzeżenie oznacza zwykle niedostępne źródło zewnętrzne albo brak pobranego schematu XSD — nie musi oznaczać błędu samego Checkera.</div>
+    </section>
+
+    <section id="coverageView" class="view">
+      <header class="topbar simple"><div><h1>Zakres silnika reguł</h1><p>Moduły uruchamiane automatycznie na podstawie PDF lub XML oraz weryfikacji w oficjalnych rejestrach MF, VIES i NBP. XML FA(3) daje dodatkowo pełną warstwę techniczną KSeF/XSD.</p></div></header>
+      <div class="coverage-grid" id="coverageGrid"></div>
+    </section>
+
+    <section id="aboutView" class="view">
+      <header class="topbar simple"><div><h1>KSeF Checker jako produkt</h1><p>Docelowo: szybka kontrola faktury przed wysyłką lub po imporcie do systemu księgowego.</p></div></header>
+      <div class="about-grid">
+        <article class="about-card"><span class="eyebrow">Warstwa 1</span><h2>PDF + FA(3)</h2><p>PDF: odczyt treści i kontrola danych. XML FA(3): parser, wizualizacja, XSD i reguły zależności między polami struktury KSeF.</p></article>
+        <article class="about-card"><span class="eyebrow">Warstwa 2</span><h2>Księgowość + rejestry</h2><p>Reverse charge, WDT, eksport, MPP, terminy, Biała Lista MF, VIES oraz kontrola kursów NBP dla faktur walutowych.</p></article>
+        <article class="about-card accent"><span class="eyebrow">Granica automatyzacji</span><h2>Dokument ≠ cały stan faktyczny</h2><p>System sam rozpoznaje przypadki na podstawie treści PDF lub XML. Jeżeli danego stanu faktycznego nie da się wiarygodnie ustalić z dokumentu, checker nie powinien zgłaszać sztucznego błędu.</p></article>
+      </div>
+      <div class="notice"><b>Zakres wersji WORK / WEB 2.5.1:</b> XML, wizualizacja, reguły lokalne, historia, kalkulatory oraz PDF z warstwą tekstową działają w przeglądarce bez Node. NBP oraz Biała Lista MF są próbowane bezpośrednio z oficjalnych API i mogą zależeć od polityki CORS/sieci firmowej. VIES może wymagać ręcznej weryfikacji. Pełna walidacja XSD i produkcyjne API KSeF/UPO pozostają poza tą wersją.</div>
+    </section>
+  </main>
+</div>
+<dialog id="referenceDialog" class="reference-dialog">
+  <div class="reference-dialog-head"><div><span class="eyebrow">Realna referencja</span><h2 id="referenceDialogTitle">Dane faktury</h2></div><button id="referenceDialogClose" class="btn ghost">Zamknij</button></div>
+  <pre id="referenceDialogText" class="reference-dialog-text"></pre>
+</dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js'"></script>
+<script src="web_adapter.js"></script>
+<script src="app.js"></script>
+<script src="pdf_preview.js"></script>
+<script src="pdf_import.js"></script>
+<script src="batch_pdf.js"></script>
+<script src="number_format.js"></script>
+<script src="toolbox.js"></script>
+<script src="tax_simulator.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js'"></script>
+<script src="health_calc.js"></script>
+<script src="office_hub.js"></script>
+<script src="qa.js"></script>
+</body>
+</html>

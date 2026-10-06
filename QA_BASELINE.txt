@@ -1,0 +1,29 @@
+KSeF Checker Pro 2.4.0 - baseline QA
+Stan: 24.09.2026
+
+Parser PDF — testy syntetyczne tekstu:
+- 7/7 PASS: data wystawienia, kilka dat w jednym wierszu, nagłówek Netto/VAT/Brutto, format 1,234.56, szum liczbowy, wiele grup VAT, etykieta w osobnym wierszu.
+
+Parser PDF — testy na 5 rzeczywistych plikach PDF wygenerowanych w różnych układach:
+- 5/5 PASS dla krytycznych pól: data wystawienia + netto + VAT + brutto.
+- sprawdzono układ klasyczny, trzy daty w jednym wierszu, tabelę kwot, format anglosaski oraz dokument z dodatkowymi liczbami/cenami jednostkowymi.
+
+Próbka wbudowana samples/17_pdf_test_invoice.pdf:
+- data wystawienia: 2026-09-24 PASS
+- data sprzedaży: 2026-09-23 PASS
+- termin płatności: 2026-10-07 PASS
+- netto: 1000,00 PASS
+- VAT: 230,00 PASS
+- brutto: 1230,00 PASS
+- rachunek bankowy PASS
+
+Uwaga: skuteczność na dowolnym PDF zależy od jakości warstwy tekstowej i układu dokumentu. Skan bez warstwy tekstowej nadal wymaga OCR.
+
+2.5.0 baseline additions:
+- dashboardView, clientsView, legalView present
+- client import + backup controls present
+- fixed-assets register and client event history present
+- PDF/XML comparison present
+- batch PDF search/status/issue filters present
+- office_hub.js present and syntactically valid
+- /api/legal/status returns JSON even when external sources are offline

@@ -1,0 +1,47 @@
+KSeF Checker Pro 2.4.2 — kalkulator składki zdrowotnej 2026
+Stan weryfikacji parametrów: 25.09.2026
+
+1. ZUS — kalkulator miesięcznej składki zdrowotnej
+https://www.zus.pl/pl/firmy/przedsiebiorco-przeczytaj-wazne/kalkulator-skladki-zdrowotnej
+- skala / liniowy: składka za miesiąc oparta na dochodzie miesiąca bezpośrednio poprzedzającego,
+- minimalna składka za styczeń 2026: 314,96 zł,
+- minimalna składka od lutego 2026: 432,54 zł.
+
+2. ZUS — kalkulator rocznej składki zdrowotnej
+https://www.zus.pl/firmy/przedsiebiorco-przeczytaj-wazne/kalkulator-rocznej-skladki-zdrowotnej
+- roczna podstawa,
+- liczba miesięcy podlegania,
+- suma miesięcznych składek należnych,
+- dopłata / zwrot.
+
+3. ZUS — parametry 2026
+https://www.zus.pl/en/-/informacja-w-sprawie-podstawy-wymiaru-sk%C5%82adki-oraz-kwoty-sk%C5%82adki-na-ubezpieczenie-zdrowotne-w-2026-r.
+Ryczałt:
+- do 60 000 zł: 60% przeciętnego wynagrodzenia, 498,35 zł miesięcznie,
+- ponad 60 000 do 300 000 zł: 100%, 830,58 zł,
+- ponad 300 000 zł: 180%, 1 495,04 zł.
+Przeciętne wynagrodzenie IV kw. 2025: 9 228,64 zł.
+
+4. Biznes.gov.pl — składka zdrowotna
+https://biznes.gov.pl/pl/portal/001052
+- skala: 9% dochodu,
+- liniowy: 4,9% dochodu,
+- minimum 432,54 zł w roku składkowym 1.02.2026–31.01.2027,
+- roczne rozliczenie i minimalna roczna składka.
+
+5. ZUS FAQ — ryczałt i składki społeczne
+https://www.zus.pl/en/o-zus/o-nas/programy-transformacji-cyfrowej-zus/zmiany-od-2022-r./faq
+Progi ryczałtu odnoszą się do przychodów pomniejszonych o opłacone składki społeczne, jeśli spełnione są ustawowe warunki ich odliczenia.
+
+6. Ustawa z 27 sierpnia 2004 r. o świadczeniach opieki zdrowotnej finansowanych ze środków publicznych
+https://eli.gov.pl/eli/DU/2025/1461/ogl
+W szczególności art. 79 i 81.
+
+7. ZUS — sprzedaż środków trwałych / WNiP i roczne DRA/RCA
+https://www.zus.pl/en/-/od-1-maja-2026-r.-obowi%C4%85zuj%C4%85-nowe-wzory-formularzy-zus-dra-i-zus-rca
+- od 1.01.2025 przy miesięcznej podstawie skali, liniowego i ryczałtu nie uwzględnia się przychodów i kosztów związanych ze sprzedażą środków trwałych/WNiP,
+- przy rocznym rozliczeniu skali/liniowego przedsiębiorca może zdecydować o ich uwzględnieniu,
+- w takim przypadku zaznacza oświadczenie w ZUS DRA blok XII pole 06 albo ZUS RCA blok III.F pole 15,
+- ryczałt nie korzysta z tej opcji rocznego doliczenia.
+
+UWAGA: kalkulator nie uwzględnia automatycznie wszystkich szczególnych wyłączeń z dochodu/przychodu, zmian formy w trakcie roku, zbiegów tytułów, kasowego PIT, wakacji składkowych ani szczególnych zwolnień. Takie przypadki wymagają sprawdzenia stanu faktycznego i dokumentów ZUS DRA/RCA.

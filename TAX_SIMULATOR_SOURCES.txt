@@ -1,0 +1,44 @@
+KSeF Checker Pro 2.4.0 — Kalkulator formy opodatkowania 2026
+Stan prawny / parametrów: 25.09.2026
+
+Zakres: osoba fizyczna prowadząca pozarolniczą działalność gospodarczą w Polsce; porównanie skali, podatku liniowego i ryczałtu.
+
+1. Skala podatkowa 2026
+   https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-wedlug-skali-podatkowej
+   Ustawa o PIT, art. 27: 12% do 120 000 zł minus 3 600 zł; powyżej 120 000 zł: 10 800 zł + 32% nadwyżki.
+
+2. Podatek liniowy
+   https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-podatkiem-liniowym
+   Ustawa o PIT, art. 30c: 19% podstawy.
+
+3. Ryczałt od przychodów ewidencjonowanych
+   https://podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-ryczaltem-od-przychodow-ewidencjonowanych
+   https://www.podatki.gov.pl/podatki-firmowe/pit/stawki-i-limity
+   Ustawa z 20.11.1998 r., w szczególności art. 6, art. 8 i art. 12.
+   Limit przychodów za 2025 uprawniający do ryczałtu w 2026: 8 517 200 zł.
+   Stawkę ryczałtu trzeba każdorazowo potwierdzić dla faktycznie wykonywanej działalności / PKWiU.
+
+4. Składka zdrowotna 2026
+   https://www.zus.pl/en/-/informacja-w-sprawie-podstawy-wymiaru-sk%C5%82adki-oraz-kwoty-sk%C5%82adki-na-ubezpieczenie-zdrowotne-w-2026-r.
+   Skala: 9%; liniowy: 4,9%; minimum styczeń 2026: 314,96 zł, od lutego 2026: 432,54 zł.
+   Ryczałt 2026: 498,35 zł / 830,58 zł / 1 495,04 zł miesięcznie dla progów do 60 tys., do 300 tys. i powyżej 300 tys. zł.
+
+5. Odliczenie składki zdrowotnej
+   https://www.podatki.gov.pl/ulgi-i-odliczenia/odliczenie-skladek-na-ubezpieczenie-zdrowotne-pit
+   Liniowy: limit 14 100 zł w 2026 r.; ryczałt: 50% zapłaconej składki zdrowotnej od przychodu; skala: brak odliczenia zdrowotnej od PIT.
+
+6. Ustawa o PIT
+   https://eli.gov.pl/eli/DU/1991/350/ogl
+
+7. Ustawa o ryczałcie — tekst jednolity
+   https://eli.gov.pl/eli/DU/2024/776/ogl
+
+8. Ustawa o świadczeniach opieki zdrowotnej — tekst jednolity
+   https://eli.gov.pl/eli/DU/2025/1461/ogl
+   Kluczowo art. 79 i art. 81.
+
+9. Interpretacje indywidualne / praktyka KIS
+   https://eureka.mf.gov.pl/
+   Kalkulator nie przypisuje automatycznie stawki ryczałtu do PKWiU, ponieważ kwalifikacja zależy od faktycznie wykonywanej usługi i może wymagać interpretacji indywidualnej.
+
+UWAGA: Kalkulator jest narzędziem symulacyjnym. Dla składki zdrowotnej skali/liniowego automatyczna wartość roczna jest estymacją opartą na dochodzie i minimach 2026; dla planu dokładnego miesięcznie księgowy może nadpisać roczną wartość składki zdrowotnej.
